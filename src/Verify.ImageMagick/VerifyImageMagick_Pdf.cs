@@ -15,21 +15,22 @@ public static partial class VerifyImageMagick
             Density = new Density(100, 100),
             Format = MagickFormat.Pdf,
         };
-        using var images = new MagickImageCollection();
         lock (locker)
         {
+            using var images = new MagickImageCollection();
             // Add all the pages of the pdf file to the collection
             images.Read(stream, magickSettings);
-        }
 
-        var streams = new List<Stream>();
-        foreach (var image in images)
-        {
-            var memoryStream = new MemoryStream();
-            image.Write(memoryStream, MagickFormat.Png);
-            streams.Add(memoryStream);
-        }
 
-        return new ConversionResult(null, streams);
+            var streams = new List<Stream>();
+            foreach (var image in images)
+            {
+                var memoryStream = new MemoryStream();
+                image.Write(memoryStream, MagickFormat.Png);
+                streams.Add(memoryStream);
+            }
+
+            return new ConversionResult(null, streams);
+        }
     }
 }
