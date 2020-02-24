@@ -10,7 +10,7 @@ To change this file edit the source file and then run MarkdownSnippets.
 [![Build status](https://ci.appveyor.com/api/projects/status/ersj3ag6pitygha5?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify-ImageMagick)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.ImageMagick.svg)](https://www.nuget.org/packages/Verify.ImageMagick/)
 
-Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of documents via [ImageMagick.net](https://github.com/dlemstra/Magick.NET).
+Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of documents via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
 
 Converts documents (pdfs) to png for verification.
 
