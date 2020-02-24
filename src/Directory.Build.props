@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <NoWarn>CS1591;CS0649</NoWarn>
+    <Version>0.1.0</Version>
+    <PackageTags>Aspose, Verify</PackageTags>
+    <Description>Extends Verify (https://github.com/SimonCropp/Verify) to allow verification via ImageMagick.</Description>
+  </PropertyGroup>
+</Project>
