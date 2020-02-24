@@ -7,6 +7,7 @@ using Verify;
 public static partial class VerifyImageMagick
 {
     static SynchronizationContext scheduler = new SynchronizationContext();
+    static MagickImageCollection images = new MagickImageCollection();
 
     static ConversionResult ConvertPdf(Stream stream, VerifySettings verifySettings)
     {
@@ -19,7 +20,7 @@ public static partial class VerifyImageMagick
                 Density = new Density(100, 100),
                 Format = MagickFormat.Pdf
             };
-            using var images = new MagickImageCollection();
+            images.Clear();
             // Add all the pages of the pdf file to the collection
             images.Read(stream, magickSettings);
 
