@@ -50,7 +50,7 @@ public class Samples :
         VerifyImageMagick.Initialize();
     }
 ```
-<sup><a href='/src/Tests/Samples.cs#L9-L22' title='File snippet `testdefinition` was extracted from'>snippet source</a> | <a href='#snippet-testdefinition' title='Navigate to start of snippet `testdefinition`'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L8-L21' title='File snippet `testdefinition` was extracted from'>snippet source</a> | <a href='#snippet-testdefinition' title='Navigate to start of snippet `testdefinition`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -68,7 +68,7 @@ public Task VerifyPdf()
     return VerifyFile("sample.pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L24-L32' title='File snippet `verifypdf` was extracted from'>snippet source</a> | <a href='#snippet-verifypdf' title='Navigate to start of snippet `verifypdf`'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L23-L31' title='File snippet `verifypdf` was extracted from'>snippet source</a> | <a href='#snippet-verifypdf' title='Navigate to start of snippet `verifypdf`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -85,7 +85,7 @@ public Task VerifyPdfStream()
     return Verify(File.OpenRead("sample.pdf"), settings);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L34-L44' title='File snippet `verifypdfstream` was extracted from'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Navigate to start of snippet `verifypdfstream`'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L33-L43' title='File snippet `verifypdfstream` was extracted from'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Navigate to start of snippet `verifypdfstream`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
