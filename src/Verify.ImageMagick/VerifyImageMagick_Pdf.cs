@@ -5,6 +5,8 @@ using Verify;
 
 public static partial class VerifyImageMagick
 {
+    static object locker = new object();
+
     static ConversionResult ConvertPdf(Stream stream, VerifySettings verifySettings)
     {
         // Settings the density to 300 dpi will create an image with a better quality
@@ -12,12 +14,13 @@ public static partial class VerifyImageMagick
         {
             Density = new Density(100, 100),
             Format = MagickFormat.Pdf,
-            //BackgroundColor = MagickColor.FromRgb(255,255,255)
         };
-
         using var images = new MagickImageCollection();
-        // Add all the pages of the pdf file to the collection
-        images.Read(stream, magickSettings);
+        lock (locker)
+        {
+            // Add all the pages of the pdf file to the collection
+            images.Read(stream, magickSettings);
+        }
 
         var streams = new List<Stream>();
         foreach (var image in images)
