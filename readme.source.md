@@ -7,6 +7,8 @@ Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of 
 
 Converts documents pdfs to png for verification.
 
+Contains [comparers](https://github.com/SimonCropp/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
+
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify.aspose?utm_source=nuget-verify.aspose&utm_medium=referral&utm_campaign=enterprise).
 
 toc
@@ -23,8 +25,16 @@ Given a test with the following definition:
 
 snippet: TestDefinition
 
+`Initialize` registers the pdf to png converter an all comparers.
 
-### PDF
+
+### PDF converter
+
+To register only the pdf to png converter:
+
+```
+VerifyImageMagick.RegisterPdfToPngConverter();
+```
 
 
 #### Verify a file
@@ -43,6 +53,14 @@ snippet: VerifyPdfStream
 
 <img src="/src/Tests/Samples.VerifyPdf.00.verified.png" width="200px">
 
+
+### Comparers
+
+Register all comparers
+
+```
+VerifyImageMagick.RegisterComparers();
+```
 
 
 ## Security contact information

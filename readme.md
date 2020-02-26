@@ -14,13 +14,16 @@ Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of 
 
 Converts documents pdfs to png for verification.
 
+Contains [comparers](https://github.com/SimonCropp/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
+
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify.aspose?utm_source=nuget-verify.aspose&utm_medium=referral&utm_campaign=enterprise).
 
 <!-- toc -->
 ## Contents
 
   * [Usage](#usage)
-    * [PDF](#pdf)
+    * [PDF converter](#pdf-converter)
+    * [Comparers](#comparers)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
 
 
@@ -52,9 +55,16 @@ public class Samples :
 <sup><a href='/src/Tests/Samples.cs#L8-L21' title='File snippet `testdefinition` was extracted from'>snippet source</a> | <a href='#snippet-testdefinition' title='Navigate to start of snippet `testdefinition`'>anchor</a></sup>
 <!-- endsnippet -->
 
+`Initialize` registers the pdf to png converter an all comparers.
 
-### PDF
 
+### PDF converter
+
+To register only the pdf to png converter:
+
+```
+VerifyImageMagick.RegisterPdfToPngConverter();
+```
 
 #### Verify a file
 
@@ -94,6 +104,14 @@ public Task VerifyPdfStream()
 
 <img src="/src/Tests/Samples.VerifyPdf.00.verified.png" width="200px">
 
+
+### Comparers
+
+Register all comparers
+
+```
+VerifyImageMagick.RegisterComparers();
+```
 
 
 ## Security contact information
