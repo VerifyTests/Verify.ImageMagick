@@ -6,21 +6,17 @@ using Verify;
 
 public static partial class VerifyImageMagick
 {
-    static ConversionResult ConvertPdf(Stream stream, VerifySettings verifySettings)
+    static ConversionResult Convert(Stream stream, VerifySettings verifySettings, MagickFormat magickFormat)
     {
         var streams = new List<Stream>();
-        // Settings the density to 300 dpi will create an image with a better quality
-        var magickSettings = new MagickReadSettings
-        {
-            Density = new Density(100, 100),
-            Format = MagickFormat.Pdf
-        };
+        var magickSettings = verifySettings.MagickReadSettings();
+        magickSettings.Format = magickFormat;
         using var images = new MagickImageCollection();
         images.Read(stream, magickSettings);
         var count = images.Count;
         if (verifySettings.GetPagesToInclude(out var pagesToInclude))
         {
-            count = Math.Min(count, (int)pagesToInclude);
+            count = Math.Min(count, (int) pagesToInclude);
         }
 
         for (var index = 0; index < count; index++)

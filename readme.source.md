@@ -5,7 +5,7 @@
 
 Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of documents via [ImageMagick.NET](https://github.com/dlemstra/Magick.NET).
 
-Converts documents (pdfs) to png for verification.
+Converts documents pdfs to png for verification.
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify.aspose?utm_source=nuget-verify.aspose&utm_medium=referral&utm_campaign=enterprise).
 
@@ -44,10 +44,6 @@ snippet: VerifyPdfStream
 <img src="/src/Tests/Samples.VerifyPdf.00.verified.png" width="200px">
 
 
-## File Samples
-
-http://file-examples.com/
-
 
 ## Security contact information
 
@@ -56,4 +52,4 @@ To report a security vulnerability, use the [Tidelift security contact](https://
 
 ## Icon
 
-[Swirl](https://thenounproject.com/term/swirl/1568686/) designed by [creativepriyanka](https://thenounproject.com/creativepriyanka) from [The Noun Project](https://thenounproject.com/creativepriyanka).
+[Swirl](https://thenounproject.com/term/wizard/2744075/) designed by [Philipp Petzka](https://thenounproject.com/masteroficon) from [The Noun Project](https://thenounproject.com/).

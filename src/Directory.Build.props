@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649</NoWarn>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <PackageTags>Aspose, Verify</PackageTags>
     <Description>Extends Verify (https://github.com/SimonCropp/Verify) to allow verification via ImageMagick.</Description>
   </PropertyGroup>

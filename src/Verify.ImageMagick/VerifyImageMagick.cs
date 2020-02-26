@@ -5,7 +5,10 @@ public static partial class VerifyImageMagick
 {
     public static void Initialize()
     {
-        SharedVerifySettings.RegisterFileConverter("pdf", "png", ConvertPdf);
+        SharedVerifySettings.RegisterFileConverter(
+            "pdf",
+            "png",
+            (stream, settings) => Convert(stream, settings, MagickFormat.Pdf));
         RegisterComparer();
     }
 
