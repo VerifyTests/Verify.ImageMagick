@@ -66,6 +66,7 @@ To register only the pdf to png converter:
 VerifyImageMagick.RegisterPdfToPngConverter();
 ```
 
+
 #### Verify a file
 
 <!-- snippet: VerifyPdf -->
