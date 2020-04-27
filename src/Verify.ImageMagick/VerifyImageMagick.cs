@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using ImageMagick;
 using Verify;
 
@@ -30,15 +31,20 @@ public static partial class VerifyImageMagick
     {
         SharedVerifySettings.RegisterComparer(
             extension,
-            (stream1, stream2) => Compare(threshold, metric, format, stream1, stream2));
+            (settings, received, verified) => Compare(threshold, metric, format, received, verified));
     }
 
-    static bool Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream stream1,  Stream stream2)
+    static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream received,  Stream verified)
     {
-        using var img1 = new MagickImage(stream1, format);
-        using var img2 = new MagickImage(stream2, format);
+        using var img1 = new MagickImage(received, format);
+        using var img2 = new MagickImage(verified, format);
         //https://imagemagick.org/script/command-line-options.php#metric
         var diff = img1.Compare(img2, metric);
-        return diff < threshold;
+        var compare = diff < threshold;
+        if (compare)
+        {
+            return Task.FromResult(CompareResult.Equal);
+        }
+        return Task.FromResult(CompareResult.NotEqual($"diff < threshold. threshold: {threshold}, diff: {diff}"));
     }
 }
