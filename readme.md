@@ -7,14 +7,14 @@ To change this file edit the source file and then run MarkdownSnippets.
 
 # <img src="/src/icon.png" height="30px"> Verify.ImageMagick
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ersj3ag6pitygha5?svg=true)](https://ci.appveyor.com/project/SimonCropp/Verify-ImageMagick)
+[![Build status](https://ci.appveyor.com/api/projects/status/ersj3ag6pitygha5?svg=true)](https://ci.appveyor.com/project/VerifyTests/Verify-ImageMagick)
 [![NuGet Status](https://img.shields.io/nuget/v/Verify.ImageMagick.svg)](https://www.nuget.org/packages/Verify.ImageMagick/)
 
-Extends [Verify](https://github.com/SimonCropp/Verify) to allow verification of documents via [Magick.NET](https://github.com/dlemstra/Magick.NET).
+Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of documents via [Magick.NET](https://github.com/dlemstra/Magick.NET).
 
 Converts documents pdfs to png for verification.
 
-Contains [comparers](https://github.com/SimonCropp/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
+Contains [comparers](https://github.com/VerifyTests/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
 
 Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-verify.aspose?utm_source=nuget-verify.aspose&utm_medium=referral&utm_campaign=enterprise).
 
