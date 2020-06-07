@@ -1,19 +1,13 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Verify;
-using VerifyXunit;
-using Xunit;
-using Xunit.Abstractions;
+using VerifyNUnit;
+using NUnit.Framework;
 
 #region TestDefinition
-public class Samples :
-    VerifyBase
+[TestFixture]
+public class Samples
 {
-    public Samples(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-
     static Samples()
     {
         VerifyImageMagick.Initialize();
@@ -22,22 +16,22 @@ public class Samples :
 
     #region VerifyPdf
 
-    [Fact]
+    [Test]
     public Task VerifyPdf()
     {
-        return VerifyFile("sample.pdf");
+        return Verifier.VerifyFile("sample.pdf");
     }
 
     #endregion
 
     #region VerifyPdfStream
 
-    [Fact]
+    [Test]
     public Task VerifyPdfStream()
     {
         var settings = new VerifySettings();
         settings.UseExtension("pdf");
-        return Verify(File.OpenRead("sample.pdf"), settings);
+        return Verifier.Verify(File.OpenRead("sample.pdf"), settings);
     }
 
     #endregion
