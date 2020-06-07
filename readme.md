@@ -39,20 +39,15 @@ Given a test with the following definition:
 <!-- snippet: TestDefinition -->
 <a id='snippet-testdefinition'/></a>
 ```cs
-public class Samples :
-    VerifyBase
+[TestFixture]
+public class Samples
 {
-    public Samples(ITestOutputHelper output) :
-        base(output)
-    {
-    }
-
     static Samples()
     {
         VerifyImageMagick.Initialize();
     }
 ```
-<sup><a href='/src/Tests/Samples.cs#L8-L21' title='File snippet `testdefinition` was extracted from'>snippet source</a> | <a href='#snippet-testdefinition' title='Navigate to start of snippet `testdefinition`'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L7-L15' title='File snippet `testdefinition` was extracted from'>snippet source</a> | <a href='#snippet-testdefinition' title='Navigate to start of snippet `testdefinition`'>anchor</a></sup>
 <!-- endsnippet -->
 
 `Initialize` registers the pdf to png converter an all comparers.
@@ -72,13 +67,13 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 <!-- snippet: VerifyPdf -->
 <a id='snippet-verifypdf'/></a>
 ```cs
-[Fact]
+[Test]
 public Task VerifyPdf()
 {
-    return VerifyFile("sample.pdf");
+    return Verifier.VerifyFile("sample.pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L23-L31' title='File snippet `verifypdf` was extracted from'>snippet source</a> | <a href='#snippet-verifypdf' title='Navigate to start of snippet `verifypdf`'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L17-L25' title='File snippet `verifypdf` was extracted from'>snippet source</a> | <a href='#snippet-verifypdf' title='Navigate to start of snippet `verifypdf`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -87,15 +82,15 @@ public Task VerifyPdf()
 <!-- snippet: VerifyPdfStream -->
 <a id='snippet-verifypdfstream'/></a>
 ```cs
-[Fact]
+[Test]
 public Task VerifyPdfStream()
 {
     var settings = new VerifySettings();
     settings.UseExtension("pdf");
-    return Verify(File.OpenRead("sample.pdf"), settings);
+    return Verifier.Verify(File.OpenRead("sample.pdf"), settings);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L33-L43' title='File snippet `verifypdfstream` was extracted from'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Navigate to start of snippet `verifypdfstream`'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L27-L37' title='File snippet `verifypdfstream` was extracted from'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Navigate to start of snippet `verifypdfstream`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
