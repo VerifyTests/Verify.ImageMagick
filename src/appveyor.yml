@@ -2,9 +2,9 @@ image: Visual Studio 2019
 skip_commits:
   message: /doco|Merge pull request.*/
 install:
-- curl -fsSL -o gs927w32.exe https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs927/gs927w32.exe
-- gs927w32.exe /S
-- path %path%;C:\Program Files (x86)\gs\gs9.27\bin
+- curl -fsSL -o gs952w32.exe https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs952/gs952w32.exe
+- gs952w32.exe /S
+- path %path%;C:\Program Files (x86)\gs\gs9.52\bin
 build_script:
 - ps: >-
     dotnet build src --configuration Release
