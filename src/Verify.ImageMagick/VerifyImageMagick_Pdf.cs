@@ -2,31 +2,33 @@
 using System.Collections.Generic;
 using System.IO;
 using ImageMagick;
-using Verify;
 
-public static partial class VerifyImageMagick
+namespace VerifyTests
 {
-    static ConversionResult Convert(Stream stream, VerifySettings verifySettings, MagickFormat magickFormat)
+    public static partial class VerifyImageMagick
     {
-        var streams = new List<Stream>();
-        var magickSettings = verifySettings.MagickReadSettings();
-        magickSettings.Format = magickFormat;
-        using var images = new MagickImageCollection();
-        images.Read(stream, magickSettings);
-        var count = images.Count;
-        if (verifySettings.GetPagesToInclude(out var pagesToInclude))
+        static ConversionResult Convert(Stream stream, VerifySettings verifySettings, MagickFormat magickFormat)
         {
-            count = Math.Min(count, (int) pagesToInclude);
-        }
+            var streams = new List<Stream>();
+            var magickSettings = verifySettings.MagickReadSettings();
+            magickSettings.Format = magickFormat;
+            using var images = new MagickImageCollection();
+            images.Read(stream, magickSettings);
+            var count = images.Count;
+            if (verifySettings.GetPagesToInclude(out var pagesToInclude))
+            {
+                count = Math.Min(count, (int) pagesToInclude);
+            }
 
-        for (var index = 0; index < count; index++)
-        {
-            var image = images[index];
-            var memoryStream = new MemoryStream();
-            image.Write(memoryStream, MagickFormat.Png);
-            streams.Add(memoryStream);
-        }
+            for (var index = 0; index < count; index++)
+            {
+                var image = images[index];
+                var memoryStream = new MemoryStream();
+                image.Write(memoryStream, MagickFormat.Png);
+                streams.Add(memoryStream);
+            }
 
-        return new ConversionResult(null, streams);
+            return new ConversionResult(null, streams);
+        }
     }
 }
