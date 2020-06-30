@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ImageMagick;
 
 namespace VerifyTests
@@ -28,7 +29,7 @@ namespace VerifyTests
                 streams.Add(memoryStream);
             }
 
-            return new ConversionResult(null, streams);
+            return new ConversionResult(null, streams.Select(x => new ConversionStream("png", x)));
         }
     }
 }

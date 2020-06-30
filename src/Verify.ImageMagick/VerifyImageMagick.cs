@@ -16,7 +16,6 @@ namespace VerifyTests
         {
             VerifierSettings.RegisterFileConverter(
                 "pdf",
-                "png",
                 (stream, settings) => Convert(stream, settings, MagickFormat.Pdf));
         }
 
