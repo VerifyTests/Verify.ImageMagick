@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.21.0" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.21.1" />
     <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="all" />
     <PackageReference Include="Verify" Version="6.7.0" />
     <PackageReference Include="ProjectDefaults" Version="1.0.43" PrivateAssets="All" />
