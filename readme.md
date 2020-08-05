@@ -40,7 +40,7 @@ https://nuget.org/packages/Verify.ImageMagick/
 Given a test with the following definition:
 
 <!-- snippet: TestDefinition -->
-<a id='snippet-testdefinition'/></a>
+<a id='snippet-testdefinition'></a>
 ```cs
 [TestFixture]
 public class Samples
@@ -68,7 +68,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 #### Verify a file
 
 <!-- snippet: VerifyPdf -->
-<a id='snippet-verifypdf'/></a>
+<a id='snippet-verifypdf'></a>
 ```cs
 [Test]
 public Task VerifyPdf()
@@ -83,7 +83,7 @@ public Task VerifyPdf()
 #### Verify a Stream
 
 <!-- snippet: VerifyPdfStream -->
-<a id='snippet-verifypdfstream'/></a>
+<a id='snippet-verifypdfstream'></a>
 ```cs
 [Test]
 public Task VerifyPdfStream()
