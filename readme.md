@@ -27,7 +27,7 @@ Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
   * [Usage](#usage)
     * [PDF converter](#pdf-converter)
     * [Comparers](#comparers)
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## NuGet package
@@ -51,7 +51,7 @@ public class Samples
     }
 ```
 <sup><a href='/src/Tests/Samples.cs#L7-L15' title='File snippet `testdefinition` was extracted from'>snippet source</a> | <a href='#snippet-testdefinition' title='Navigate to start of snippet `testdefinition`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 `Initialize` registers the pdf to png converter an all comparers.
 
@@ -77,7 +77,7 @@ public Task VerifyPdf()
 }
 ```
 <sup><a href='/src/Tests/Samples.cs#L17-L25' title='File snippet `verifypdf` was extracted from'>snippet source</a> | <a href='#snippet-verifypdf' title='Navigate to start of snippet `verifypdf`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 #### Verify a Stream
@@ -94,7 +94,7 @@ public Task VerifyPdfStream()
 }
 ```
 <sup><a href='/src/Tests/Samples.cs#L27-L37' title='File snippet `verifypdfstream` was extracted from'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Navigate to start of snippet `verifypdfstream`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 #### Result
