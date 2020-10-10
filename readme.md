@@ -40,7 +40,7 @@ https://nuget.org/packages/Verify.ImageMagick/
 Given a test with the following definition:
 
 <!-- snippet: TestDefinition -->
-<a id='testdefinition'></a>
+<a id='snippet-testdefinition'></a>
 ```cs
 [TestFixture]
 public class Samples
@@ -50,7 +50,7 @@ public class Samples
         VerifyImageMagick.Initialize();
     }
 ```
-<sup><a href='/src/Tests/Samples.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#testdefinition' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-testdefinition' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `Initialize` registers the pdf to png converter an all comparers.
@@ -68,7 +68,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 #### Verify a file
 
 <!-- snippet: VerifyPdf -->
-<a id='verifypdf'></a>
+<a id='snippet-verifypdf'></a>
 ```cs
 [Test]
 public Task VerifyPdf()
@@ -76,14 +76,14 @@ public Task VerifyPdf()
     return Verifier.VerifyFile("sample.pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L17-L25' title='Snippet source file'>snippet source</a> | <a href='#verifypdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L17-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Verify a Stream
 
 <!-- snippet: VerifyPdfStream -->
-<a id='verifypdfstream'></a>
+<a id='snippet-verifypdfstream'></a>
 ```cs
 [Test]
 public Task VerifyPdfStream()
@@ -93,7 +93,7 @@ public Task VerifyPdfStream()
     return Verifier.Verify(File.OpenRead("sample.pdf"), settings);
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L27-L37' title='Snippet source file'>snippet source</a> | <a href='#verifypdfstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L27-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
