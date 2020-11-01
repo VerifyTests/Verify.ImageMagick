@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ImageMagick;
 
 namespace VerifyTests
@@ -11,10 +12,10 @@ namespace VerifyTests
             settings.Context["ImageMagick.PagesToInclude"] = count;
         }
 
-        internal static bool GetPagesToInclude(this VerifySettings settings, [NotNullWhen(true)] out int? pages)
+        internal static bool GetPagesToInclude(this IReadOnlyDictionary<string, object> context, [NotNullWhen(true)] out int? pages)
         {
-            Guard.AgainstNull(settings, nameof(settings));
-            if (settings.Context.TryGetValue("ImageMagick.PagesToInclude", out var value))
+            Guard.AgainstNull(context, nameof(context));
+            if (context.TryGetValue("ImageMagick.PagesToInclude", out var value))
             {
                 pages = (int) value;
                 return true;
@@ -31,10 +32,10 @@ namespace VerifyTests
             settings.Context["ImageMagick.MagickReadSettings"] = magickReadSettings;
         }
 
-        internal static MagickReadSettings MagickReadSettings(this VerifySettings settings)
+        internal static MagickReadSettings MagickReadSettings(this IReadOnlyDictionary<string, object> context)
         {
-            Guard.AgainstNull(settings, nameof(settings));
-            if (settings.Context.TryGetValue("ImageMagick.MagickReadSettings", out var value))
+            Guard.AgainstNull(context, nameof(context));
+            if (context.TryGetValue("ImageMagick.MagickReadSettings", out var value))
             {
                 return (MagickReadSettings) value;
             }

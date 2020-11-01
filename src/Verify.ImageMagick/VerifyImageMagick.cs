@@ -16,7 +16,7 @@ namespace VerifyTests
         {
             VerifierSettings.RegisterFileConverter(
                 "pdf",
-                (stream, settings) => Convert(stream, settings, MagickFormat.Pdf));
+                (stream, context) => Convert(stream, context, MagickFormat.Pdf));
         }
 
         public static void RegisterComparers(double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
@@ -31,7 +31,7 @@ namespace VerifyTests
         {
             VerifierSettings.RegisterComparer(
                 extension,
-                (settings, received, verified) => Compare(threshold, metric, format, received, verified));
+                (received, verified, _) => Compare(threshold, metric, format, received, verified));
         }
 
         static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream received, Stream verified)

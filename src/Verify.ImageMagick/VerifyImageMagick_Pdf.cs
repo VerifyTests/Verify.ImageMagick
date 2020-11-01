@@ -8,15 +8,15 @@ namespace VerifyTests
 {
     public static partial class VerifyImageMagick
     {
-        static ConversionResult Convert(Stream stream, VerifySettings verifySettings, MagickFormat magickFormat)
+        static ConversionResult Convert(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
         {
             var streams = new List<Stream>();
-            var magickSettings = verifySettings.MagickReadSettings();
+            var magickSettings = context.MagickReadSettings();
             magickSettings.Format = magickFormat;
             using var images = new MagickImageCollection();
             images.Read(stream, magickSettings);
             var count = images.Count;
-            if (verifySettings.GetPagesToInclude(out var pagesToInclude))
+            if (context.GetPagesToInclude(out var pagesToInclude))
             {
                 count = Math.Min(count, (int) pagesToInclude);
             }
