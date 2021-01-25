@@ -29,7 +29,7 @@ namespace VerifyTests
 
         public static void RegisterComparer(double threshold, ErrorMetric metric, string extension, MagickFormat format)
         {
-            VerifierSettings.RegisterComparer(
+            VerifierSettings.RegisterStreamComparer(
                 extension,
                 (received, verified, _) => Compare(threshold, metric, format, received, verified));
         }
