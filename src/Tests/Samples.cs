@@ -12,6 +12,7 @@ public class Samples
     {
         VerifyImageMagick.Initialize();
     }
+
     #endregion
 
     #region VerifyPdf
@@ -29,9 +30,8 @@ public class Samples
     [Test]
     public Task VerifyPdfStream()
     {
-        var settings = new VerifySettings();
-        settings.UseExtension("pdf");
-        return Verifier.Verify(File.OpenRead("sample.pdf"), settings);
+        return Verifier.Verify(File.OpenRead("sample.pdf"))
+            .UseExtension("pdf");
     }
 
     #endregion

@@ -43,7 +43,7 @@ public class Samples
         VerifyImageMagick.Initialize();
     }
 ```
-<sup><a href='/src/Tests/Samples.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-testdefinition' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L8-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-testdefinition' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `Initialize` registers the pdf to png converter an all comparers.
@@ -69,7 +69,7 @@ public Task VerifyPdf()
     return Verifier.VerifyFile("sample.pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L17-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L19-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -81,12 +81,11 @@ public Task VerifyPdf()
 [Test]
 public Task VerifyPdfStream()
 {
-    var settings = new VerifySettings();
-    settings.UseExtension("pdf");
-    return Verifier.Verify(File.OpenRead("sample.pdf"), settings);
+    return Verifier.Verify(File.OpenRead("sample.pdf"))
+        .UseExtension("pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L27-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L29-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
