@@ -46,7 +46,7 @@ namespace VerifyTests
                 return Task.FromResult(CompareResult.Equal);
             }
 
-            return Task.FromResult(CompareResult.NotEqual($"diff < threshold. threshold: {threshold}, diff: {diff}"));
+            return Task.FromResult(CompareResult.NotEqual($"diff({diff}) < threshold({threshold})"));
         }
     }
 }
