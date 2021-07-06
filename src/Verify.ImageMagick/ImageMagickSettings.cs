@@ -54,9 +54,9 @@ namespace VerifyTests
                 return (MagickReadSettings) value;
             }
 
-            return new MagickReadSettings
+            return new()
             {
-                Density = new Density(100, 100)
+                Density = new(100, 100)
             };
         }
     }

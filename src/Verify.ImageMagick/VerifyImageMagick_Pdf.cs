@@ -29,7 +29,7 @@ namespace VerifyTests
                 streams.Add(memoryStream);
             }
 
-            return new ConversionResult(null, streams.Select(x => new Target("png", x)));
+            return new(null, streams.Select(x => new Target("png", x)));
         }
     }
 }
