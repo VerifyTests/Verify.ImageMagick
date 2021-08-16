@@ -21,20 +21,24 @@ https://nuget.org/packages/Verify.ImageMagick/
 
 ## Usage
 
-Given a test with the following definition:
+Enable:
 
-<!-- snippet: TestDefinition -->
-<a id='snippet-testdefinition'></a>
+<!-- snippet: ModuleInitializer.cs -->
+<a id='snippet-ModuleInitializer.cs'></a>
 ```cs
-[TestFixture]
-public class Samples
+using System.Runtime.CompilerServices;
+using VerifyTests;
+
+public static class ModuleInitializer
 {
-    static Samples()
+    [ModuleInitializer]
+    public static void Init()
     {
         VerifyImageMagick.Initialize();
     }
+}
 ```
-<sup><a href='/src/Tests/Samples.cs#L7-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-testdefinition' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L1-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModuleInitializer.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `Initialize` registers the pdf to png converter an all comparers.
@@ -60,7 +64,7 @@ public Task VerifyPdf()
     return Verifier.VerifyFile("sample.pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L18-L26' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L19-L27' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -76,7 +80,7 @@ public Task VerifyPdfStream()
         .UseExtension("pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L28-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L29-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -87,9 +91,26 @@ public Task VerifyPdfStream()
 <img src="/src/Tests/Samples.VerifyPdf.00.verified.png" width="200px">
 
 
-### Comparers
+### Image Comparers
 
-Register all comparers
+The following will use ImageMagick to compare the images instead of the default binary comparison.
+
+<!-- snippet: CompareImage -->
+<a id='snippet-compareimage'></a>
+```cs
+[Test]
+public Task CompareImage()
+{
+    return Verifier.VerifyFile("sample.jpg");
+}
+```
+<sup><a href='/src/Tests/Samples.cs#L9-L17' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
+### Register all comparers
+
+All comparers can be regietered:
 
 ```
 VerifyImageMagick.RegisterComparers();

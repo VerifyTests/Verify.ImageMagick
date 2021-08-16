@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using ImageMagick;
 
@@ -6,6 +7,10 @@ namespace VerifyTests
 {
     public static partial class VerifyImageMagick
     {
+        /// <summary>
+        /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
+        /// <see cref="RegisterComparers"/>(threshold = .005, metric = ErrorMetric.Fuzz)
+        /// </summary>
         public static void Initialize()
         {
             RegisterPdfToPngConverter();
@@ -27,6 +32,34 @@ namespace VerifyTests
             RegisterComparer(threshold, metric, "tiff", MagickFormat.Tiff);
         }
 
+        static MagickFormat GetFormat(string? extension)
+        {
+            return extension switch
+            {
+                "png" => MagickFormat.Png,
+                "jpg" => MagickFormat.Jpg,
+                "bmp" => MagickFormat.Bmp,
+                "tif" => MagickFormat.Tiff,
+                "tiff" => MagickFormat.Tiff,
+                _ => MagickFormat.Unknown
+            };
+        }
+
+        public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
+        {
+            settings.TryGetExtension(out var extension);
+            settings.UseStreamComparer(
+                (received, verified, _) => Compare(threshold, metric, GetFormat(extension), received, verified));
+        }
+
+        public static SettingsTask ImageMagickComparer(this SettingsTask settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
+        {
+            settings.TryGetExtension(out var extension);
+            var format = GetFormat(extension);
+            return settings.UseStreamComparer(
+                (received, verified, _) => Compare(threshold, metric, format, received, verified));
+        }
+
         public static void RegisterComparer(double threshold, ErrorMetric metric, string extension, MagickFormat format)
         {
             VerifierSettings.RegisterStreamComparer(
@@ -46,7 +79,12 @@ namespace VerifyTests
                 return Task.FromResult(CompareResult.Equal);
             }
 
-            return Task.FromResult(CompareResult.NotEqual($"diff({diff}) < threshold({threshold})"));
+            var round = Math.Ceiling(diff * 100) / 100;
+            return Task.FromResult(CompareResult.NotEqual($@"diff({diff}) < threshold({threshold}).
+If this difference is acceptable, use:
+
+ * Globally: VerifyImageMagick.RegisterComparers({round});
+ * For one test: Verifier.VerifyFile(""file.jpg"").RegisterComparers({round});"));
         }
     }
 }

@@ -1,16 +1,17 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using VerifyTests;
 using VerifyNUnit;
 using NUnit.Framework;
 
-#region TestDefinition
 [TestFixture]
 public class Samples
 {
-    static Samples()
+    #region CompareImage
+
+    [Test]
+    public Task CompareImage()
     {
-        VerifyImageMagick.Initialize();
+        return Verifier.VerifyFile("sample.jpg");
     }
 
     #endregion
