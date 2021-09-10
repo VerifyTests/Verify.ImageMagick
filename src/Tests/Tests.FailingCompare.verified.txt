@@ -7,11 +7,11 @@ Differences:
 Received: Tests.FailingCompareInner.received.jpg
 Verified: Tests.FailingCompareInner.verified.jpg
 Compare Result:
-diff(0.013759291993627588) < threshold(0.0001).
+diff(0.5114013075299422) < threshold(0.0001).
 If this difference is acceptable, use:
 
- * Globally: VerifyImageMagick.RegisterComparers(0.02);
- * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.02);
+ * Globally: VerifyImageMagick.RegisterComparers(0.52);
+ * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.52);
 
 ,
   StackTrace: 
