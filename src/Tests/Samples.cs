@@ -16,8 +16,6 @@ public class Samples
 
     #endregion
 
-#if DEBUG
-
     #region VerifyPdf
 
     [Test]
@@ -38,6 +36,4 @@ public class Samples
     }
 
     #endregion
-
-#endif
 }
