@@ -67,7 +67,7 @@ namespace VerifyTests
                 (received, verified, _) => Compare(threshold, metric, format, received, verified));
         }
 
-        static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream received, Stream verified)
+        public static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream received, Stream verified)
         {
             using var img1 = new MagickImage(received, format);
             using var img2 = new MagickImage(verified, format);
