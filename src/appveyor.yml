@@ -1,13 +1,15 @@
 image: Visual Studio 2019
 skip_commits:
   message: /docs|Merge pull request.*/
-install:
-- curl -fsSL -o gs952w32.exe https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs952/gs952w32.exe
-- gs952w32.exe /S
-- path %path%;C:\Program Files (x86)\gs\gs9.52\bin
 build_script:
-- ps: >-
+- pwsh: |
+    curl -fsSL -o gs952w32.exe https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs952/gs952w32.exe  
+    gs952w32.exe /S
+    path %path%;C:\Program Files (x86)\gs\gs9.52\bin
+    Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
+    ./dotnet-install.ps1 -JSonFile src/global.json -Architecture x64 -InstallDir 'C:\Program Files\dotnet'
     dotnet build src --configuration Release
+    dotnet test src --configuration Release --no-build --no-restore --filter Category!=Integration
 test: off
 artifacts:
 - path: nugets\**\*.nupkg
