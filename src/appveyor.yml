@@ -1,11 +1,8 @@
 image: Visual Studio 2019
 skip_commits:
   message: /docs|Merge pull request.*/
-install:
-- pwsh: |
-    curl -fsSL https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9550/gs9550w64.exe
-    gs9550w64.exe /S
-    path %path%;C:\Program Files (x86)\gs\gs9.55\bin
+init:
+  - choco install ghostscript
 build_script:
 - pwsh: |
     Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
