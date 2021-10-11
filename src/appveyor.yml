@@ -3,7 +3,7 @@ skip_commits:
   message: /docs|Merge pull request.*/
 install:
 - pwsh: |
-    curl -fsSL -o https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9550/gs9550w64.exe
+    curl -fsSL https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs9550/gs9550w64.exe
     gs9550w64.exe /S
     path %path%;C:\Program Files (x86)\gs\gs9.55\bin
 build_script:
