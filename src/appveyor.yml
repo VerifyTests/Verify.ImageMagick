@@ -2,7 +2,7 @@ image: Visual Studio 2019
 skip_commits:
   message: /docs|Merge pull request.*/
 init:
-  - choco install ghostscript
+  - choco install ghostscript.app
 build_script:
 - pwsh: |
     Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
