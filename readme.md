@@ -10,7 +10,7 @@ Converts documents pdfs to png for verification.
 Contains [comparers](https://github.com/VerifyTests/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
 
 <a href='https://dotnetfoundation.org' alt='Part of the .NET Foundation'><img src='https://raw.githubusercontent.com/VerifyTests/Verify/master/docs/dotNetFoundation.svg' height='30px'></a><br>
-Part of the <a href='https://dotnetfoundation.org' alt=''>.NET Foundation</a>
+Part of the [.NET Foundation](https://dotnetfoundation.org)
 
 
 
