@@ -1,7 +1,4 @@
-﻿using VerifyNUnit;
-using NUnit.Framework;
-
-[TestFixture]
+﻿[TestFixture]
 public class Samples
 {
     #region CompareImage

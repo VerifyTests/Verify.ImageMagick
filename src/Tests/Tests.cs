@@ -1,8 +1,4 @@
-﻿using VerifyTests;
-using VerifyNUnit;
-using NUnit.Framework;
-
-[TestFixture]
+﻿[TestFixture]
 public class Tests
 {
     [Test]
