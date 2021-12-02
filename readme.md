@@ -26,8 +26,6 @@ Enable:
 <!-- snippet: ModuleInitializer.cs -->
 <a id='snippet-ModuleInitializer.cs'></a>
 ```cs
-using VerifyTests;
-
 public static class ModuleInitializer
 {
     [ModuleInitializer]
@@ -37,7 +35,7 @@ public static class ModuleInitializer
     }
 }
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L1-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModuleInitializer.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L1-L8' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModuleInitializer.cs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `Initialize` registers the pdf to png converter an all comparers.
@@ -63,7 +61,7 @@ public Task VerifyPdf()
     return Verifier.VerifyFile("sample.pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L17-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L14-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -79,7 +77,7 @@ public Task VerifyPdfStream()
         .UseExtension("pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L27-L36' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L24-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -103,7 +101,7 @@ public Task CompareImage()
     return Verifier.VerifyFile("sample.jpg");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L7-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L4-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
