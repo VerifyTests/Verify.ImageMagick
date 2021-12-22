@@ -58,7 +58,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 [Test]
 public Task VerifyPdf()
 {
-    return Verifier.VerifyFile("sample.pdf");
+    return VerifyFile("sample.pdf");
 }
 ```
 <sup><a href='/src/Tests/Samples.cs#L14-L22' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
@@ -73,7 +73,7 @@ public Task VerifyPdf()
 [Test]
 public Task VerifyPdfStream()
 {
-    return Verifier.Verify(File.OpenRead("sample.pdf"))
+    return Verify(File.OpenRead("sample.pdf"))
         .UseExtension("pdf");
 }
 ```
@@ -98,7 +98,7 @@ The following will use ImageMagick to compare the images instead of the default 
 [Test]
 public Task CompareImage()
 {
-    return Verifier.VerifyFile("sample.jpg");
+    return VerifyFile("sample.jpg");
 }
 ```
 <sup><a href='/src/Tests/Samples.cs#L4-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
