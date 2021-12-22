@@ -6,7 +6,7 @@ public class Tests
     {
         return Verifier.ThrowsTask(async () =>
         {
-            await Verifier.VerifyFile("sample.jpg")
+            await VerifyFile("sample.jpg")
                 .DisableDiff()
                 .UseMethodName("FailingCompareInner")
                 .ImageMagickComparer(.0001);

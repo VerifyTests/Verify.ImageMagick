@@ -6,7 +6,7 @@ public class Samples
     [Test]
     public Task CompareImage()
     {
-        return Verifier.VerifyFile("sample.jpg");
+        return VerifyFile("sample.jpg");
     }
 
     #endregion
@@ -16,7 +16,7 @@ public class Samples
     [Test]
     public Task VerifyPdf()
     {
-        return Verifier.VerifyFile("sample.pdf");
+        return VerifyFile("sample.pdf");
     }
 
     #endregion
@@ -26,7 +26,7 @@ public class Samples
     [Test]
     public Task VerifyPdfStream()
     {
-        return Verifier.Verify(File.OpenRead("sample.pdf"))
+        return Verify(File.OpenRead("sample.pdf"))
             .UseExtension("pdf");
     }
 
