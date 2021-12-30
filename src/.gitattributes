@@ -5,6 +5,7 @@
 *.snk binary
 *.pdf binary
 *.docx binary
+*.jpg binary
 *.png binary
 *.xlsx binary
 *.mpp binary
