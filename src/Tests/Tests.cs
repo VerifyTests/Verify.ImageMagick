@@ -12,7 +12,6 @@ public class Tests
                     .ImageMagickComparer(.0001);
             })
             .IgnoreStackTrack()
-            .ScrubLinesContaining("clipboard")
-            .ScrubLinesContaining("DiffEngineTray");
+            .ScrubLinesContaining("clipboard", "DiffEngineTray");
     }
 }
