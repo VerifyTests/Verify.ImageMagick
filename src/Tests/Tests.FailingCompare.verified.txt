@@ -2,7 +2,6 @@
   Type: VerifyException,
   Message:
 Results do not match.
-Use DiffEngineTray to verify files.
 Differences:
 Received: Tests.FailingCompareInner.received.jpg
 Verified: Tests.FailingCompareInner.verified.jpg
@@ -12,7 +11,4 @@ If this difference is acceptable, use:
 
  * Globally: VerifyImageMagick.RegisterComparers(0.52);
  * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.52);
-
-,
-  StackTrace: 
 }
