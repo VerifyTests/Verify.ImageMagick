@@ -13,7 +13,6 @@ Contains [comparers](https://github.com/VerifyTests/Verify/blob/master/docs/comp
 Part of the [.NET Foundation](https://dotnetfoundation.org)
 
 
-
 ## NuGet package
 
 https://nuget.org/packages/Verify.ImageMagick/
