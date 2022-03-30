@@ -5,10 +5,8 @@ namespace VerifyTests;
 
 public static class ImageMagickSettings
 {
-    public static void PagesToInclude(this VerifySettings settings, int count)
-    {
+    public static void PagesToInclude(this VerifySettings settings, int count) =>
         settings.Context["ImageMagick.PagesToInclude"] = count;
-    }
 
     public static SettingsTask PagesToInclude(this SettingsTask settings, int count)
     {
@@ -28,10 +26,8 @@ public static class ImageMagickSettings
         return false;
     }
 
-    public static void MagickReadSettings(this VerifySettings settings, MagickReadSettings magickReadSettings)
-    {
+    public static void MagickReadSettings(this VerifySettings settings, MagickReadSettings magickReadSettings) =>
         settings.Context["ImageMagick.MagickReadSettings"] = magickReadSettings;
-    }
 
     public static SettingsTask MagickReadSettings(this SettingsTask settings, MagickReadSettings magickReadSettings)
     {

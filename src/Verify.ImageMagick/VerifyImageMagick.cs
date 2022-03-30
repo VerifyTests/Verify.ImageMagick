@@ -14,12 +14,10 @@ public static partial class VerifyImageMagick
         RegisterComparers();
     }
 
-    public static void RegisterPdfToPngConverter()
-    {
+    public static void RegisterPdfToPngConverter() =>
         VerifierSettings.RegisterFileConverter(
             "pdf",
             (stream, context) => Convert(stream, context, MagickFormat.Pdf));
-    }
 
     public static void RegisterComparers(double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
     {
@@ -29,9 +27,8 @@ public static partial class VerifyImageMagick
         RegisterComparer(threshold, metric, "tiff", MagickFormat.Tiff);
     }
 
-    static MagickFormat GetFormat(string? extension)
-    {
-        return extension switch
+    static MagickFormat GetFormat(string? extension) =>
+        extension switch
         {
             "png" => MagickFormat.Png,
             "jpg" => MagickFormat.Jpg,
@@ -40,7 +37,6 @@ public static partial class VerifyImageMagick
             "tiff" => MagickFormat.Tiff,
             _ => MagickFormat.Unknown
         };
-    }
 
     public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
     {
@@ -57,12 +53,10 @@ public static partial class VerifyImageMagick
             (received, verified, _) => Compare(threshold, metric, format, received, verified));
     }
 
-    public static void RegisterComparer(double threshold, ErrorMetric metric, string extension, MagickFormat format)
-    {
+    public static void RegisterComparer(double threshold, ErrorMetric metric, string extension, MagickFormat format) =>
         VerifierSettings.RegisterStreamComparer(
             extension,
             (received, verified, _) => Compare(threshold, metric, format, received, verified));
-    }
 
     public static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream received, Stream verified)
     {
