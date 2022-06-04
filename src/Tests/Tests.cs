@@ -10,6 +10,6 @@ public class Tests
                     .UseMethodName("FailingCompareInner")
                     .ImageMagickComparer(.0001);
             })
-            .IgnoreStackTrack()
+            .IgnoreStackTrace()
             .ScrubLinesContaining("clipboard", "DiffEngineTray");
 }
