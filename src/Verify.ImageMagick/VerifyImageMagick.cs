@@ -21,47 +21,29 @@ public static partial class VerifyImageMagick
 
     public static void RegisterComparers(double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
     {
-        RegisterComparer(threshold, metric, "png", MagickFormat.Png);
-        RegisterComparer(threshold, metric, "jpg", MagickFormat.Jpg);
-        RegisterComparer(threshold, metric, "bmp", MagickFormat.Bmp);
-        RegisterComparer(threshold, metric, "tiff", MagickFormat.Tiff);
+        RegisterComparer(threshold, metric, "png");
+        RegisterComparer(threshold, metric, "jpg");
+        RegisterComparer(threshold, metric, "bmp");
+        RegisterComparer(threshold, metric, "tiff");
     }
 
-    static MagickFormat GetFormat(string? extension) =>
-        extension switch
-        {
-            "png" => MagickFormat.Png,
-            "jpg" => MagickFormat.Jpg,
-            "bmp" => MagickFormat.Bmp,
-            "tif" => MagickFormat.Tiff,
-            "tiff" => MagickFormat.Tiff,
-            _ => MagickFormat.Unknown
-        };
-
-    public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
-    {
-        settings.TryGetExtension(out var extension);
+    public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
         settings.UseStreamComparer(
-            (received, verified, _) => Compare(threshold, metric, GetFormat(extension), received, verified));
-    }
+            (received, verified, _) => Compare(threshold, metric, received, verified));
 
-    public static SettingsTask ImageMagickComparer(this SettingsTask settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
-    {
-        settings.TryGetExtension(out var extension);
-        var format = GetFormat(extension);
-        return settings.UseStreamComparer(
-            (received, verified, _) => Compare(threshold, metric, format, received, verified));
-    }
+    public static SettingsTask ImageMagickComparer(this SettingsTask settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
+        settings.UseStreamComparer(
+            (received, verified, _) => Compare(threshold, metric, received, verified));
 
-    public static void RegisterComparer(double threshold, ErrorMetric metric, string extension, MagickFormat format) =>
+    public static void RegisterComparer(double threshold, ErrorMetric metric, string extension) =>
         VerifierSettings.RegisterStreamComparer(
             extension,
-            (received, verified, _) => Compare(threshold, metric, format, received, verified));
+            (received, verified, _) => Compare(threshold, metric, received, verified));
 
-    public static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickFormat format, Stream received, Stream verified)
+    public static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)
     {
-        using var img1 = new MagickImage(received, format);
-        using var img2 = new MagickImage(verified, format);
+        using var img1 = new MagickImage(received);
+        using var img2 = new MagickImage(verified);
         //https://imagemagick.org/script/command-line-options.php#metric
         var diff = img1.Compare(img2, metric);
         var compare = diff < threshold;
