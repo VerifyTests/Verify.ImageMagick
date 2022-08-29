@@ -5,5 +5,6 @@
     {
         VerifyImageMagick.Initialize();
         VerifyImageMagick.RegisterComparers(0.05);
+        VerifyDiffPlex.Initialize();
     }
 }
