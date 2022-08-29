@@ -3,21 +3,21 @@
   Message:
 Directory: {ProjectDirectory}
 NotEqual:
-  - Received: Tests.FailingCompareInner.DotNet6_0.received.jpg
+  - Received: Tests.FailingCompareInner.received.jpg
     Verified: Tests.FailingCompareInner.verified.jpg
 
 FileContent:
 
 NotEqual:
 
-Received: Tests.FailingCompareInner.DotNet6_0.received.jpg
+Received: Tests.FailingCompareInner.received.jpg
 Verified: Tests.FailingCompareInner.verified.jpg
 Compare Result:
-diff(0.31297626166698994) > threshold(0.0001).
+diff(0.4140830166355099) > threshold(0.0001).
 If this difference is acceptable, use:
 
- * Globally: VerifyImageMagick.RegisterComparers(0.32);
- * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.32);
+ * Globally: VerifyImageMagick.RegisterComparers(0.42);
+ * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.42);
 
 
 }
