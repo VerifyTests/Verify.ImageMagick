@@ -18,22 +18,16 @@ https://nuget.org/packages/Verify.ImageMagick/
 
 ## Usage
 
-Enable:
-
-<!-- snippet: ModuleInitializer.cs -->
-<a id='snippet-ModuleInitializer.cs'></a>
+<!-- snippet: enable -->
+<a id='snippet-enable'></a>
 ```cs
-public static class ModuleInitializer
+[ModuleInitializer]
+public static void Init()
 {
-    [ModuleInitializer]
-    public static void Init()
-    {
-        VerifyImageMagick.Initialize();
-        VerifyImageMagick.RegisterComparers(0.05);
-    }
-}
+    VerifyImageMagick.Initialize();
+    VerifyImageMagick.RegisterComparers(0.05);
 ```
-<sup><a href='/src/Tests/ModuleInitializer.cs#L1-L9' title='Snippet source file'>snippet source</a> | <a href='#snippet-ModuleInitializer.cs' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ModuleInitializer.cs#L3-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 `Initialize` registers the pdf to png converter and all comparers.
