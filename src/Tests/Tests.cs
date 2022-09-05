@@ -1,4 +1,6 @@
-﻿[TestFixture]
+﻿#if Debug
+
+[TestFixture]
 public class Tests
 {
     [Test]
@@ -13,3 +15,5 @@ public class Tests
             .IgnoreStackTrace()
             .ScrubLinesContaining("clipboard", "DiffEngineTray");
 }
+
+#endif
