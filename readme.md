@@ -73,7 +73,7 @@ public Task VerifyPdfStream()
 
 #### Result
 
-[Samples.VerifyPdf.00.verified.png](/src/Tests/Samples.VerifyPdf.00.verified.png):
+[Samples.VerifyPdf#00.verified.png](/src/Tests/Samples.VerifyPdf#00.verified.png):
 
 <img src="/src/Tests/Samples.VerifyPdf#00.verified.png" width="200px">
 
