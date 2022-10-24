@@ -75,7 +75,7 @@ public Task VerifyPdfStream()
 
 [Samples.VerifyPdf.00.verified.png](/src/Tests/Samples.VerifyPdf.00.verified.png):
 
-<img src="/src/Tests/Samples.VerifyPdf.00.verified.png" width="200px">
+<img src="/src/Tests/Samples.VerifyPdf#00.verified.png" width="200px">
 
 
 ### Image Comparers
@@ -100,7 +100,6 @@ All comparers can be regietered:
 ```
 VerifyImageMagick.RegisterComparers();
 ```
-
 
 
 ## Icon
