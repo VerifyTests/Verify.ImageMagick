@@ -10,17 +10,22 @@ public static partial class VerifyImageMagick
     /// </summary>
     public static void Initialize()
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterPdfToPngConverter();
         RegisterComparers();
     }
 
-    public static void RegisterPdfToPngConverter() =>
+    public static void RegisterPdfToPngConverter()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         VerifierSettings.RegisterFileConverter(
             "pdf",
             (stream, context) => Convert(stream, context, MagickFormat.Pdf));
+    }
 
     public static void RegisterComparers(double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
     {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterComparer(threshold, metric, "png");
         RegisterComparer(threshold, metric, "jpg");
         RegisterComparer(threshold, metric, "bmp");
