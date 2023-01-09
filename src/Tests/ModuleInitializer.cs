@@ -7,9 +7,11 @@
     {
         VerifyImageMagick.Initialize();
         VerifyImageMagick.RegisterComparers(0.05);
-
-        #endregion
-
-        VerifyDiffPlex.Initialize();
     }
+
+    #endregion
+
+    [ModuleInitializer]
+    public static void InitOther() =>
+        VerifyDiffPlex.Initialize();
 }
