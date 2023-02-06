@@ -1,6 +1,7 @@
 * text
 *.snk binary
 *.jpg binary
+*.pdf binary
 *.png binary
 
 *.verified.txt text eol=lf
