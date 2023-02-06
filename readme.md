@@ -52,7 +52,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 public Task VerifyPdf() =>
     VerifyFile("sample.pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L12-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L14-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -68,7 +68,7 @@ public Task VerifyPdfStream()
     return Verify(stream, "pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L20-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L22-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -90,7 +90,7 @@ The following will use ImageMagick to compare the images instead of the default 
 public Task CompareImage() =>
     VerifyFile("sample.jpg");
 ```
-<sup><a href='/src/Tests/Samples.cs#L4-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L6-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
