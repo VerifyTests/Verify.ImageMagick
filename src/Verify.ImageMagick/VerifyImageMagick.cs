@@ -8,8 +8,15 @@ public static partial class VerifyImageMagick
     /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
     /// <see cref="RegisterComparers"/>(threshold = .005, metric = ErrorMetric.Fuzz)
     /// </summary>
+    public static bool Initialized { get; private set; }
+
     public static void Initialize()
     {
+        if (Initialized)
+        {
+            throw new("Already Initialized");
+        }
+
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterPdfToPngConverter();
         RegisterComparers();
