@@ -1,4 +1,6 @@
-﻿[TestFixture]
+﻿#if DEBUG
+
+[TestFixture]
 public class Samples
 {
     #region CompareImage
@@ -28,3 +30,5 @@ public class Samples
 
     #endregion
 }
+
+#endif
