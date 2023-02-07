@@ -17,6 +17,8 @@ public static partial class VerifyImageMagick
             throw new("Already Initialized");
         }
 
+        Initialized = true;
+
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         RegisterPdfToPngConverter();
         RegisterComparers();
