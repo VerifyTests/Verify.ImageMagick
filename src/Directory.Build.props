@@ -5,6 +5,7 @@
     <Version>3.2.2</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
     <PackageTags>ImageMagick, Verify</PackageTags>
     <Description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification via ImageMagick.</Description>
   </PropertyGroup>
