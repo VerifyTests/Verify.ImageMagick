@@ -6,6 +6,8 @@
 
 Extends [Verify](https://github.com/VerifyTests/Verify) to allow verification of documents via [Magick.NET](https://github.com/dlemstra/Magick.NET).
 
+**See [Milestones](../../milestones?state=closed) for release notes.**
+
 Converts documents pdfs to png for verification.
 
 Contains [comparers](https://github.com/VerifyTests/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
