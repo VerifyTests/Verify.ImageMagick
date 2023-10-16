@@ -8,5 +8,6 @@
     <LangVersion>preview</LangVersion>
     <PackageTags>ImageMagick, Verify</PackageTags>
     <Description>Extends Verify (https://github.com/VerifyTests/Verify) to allow verification via ImageMagick.</Description>
+    <ResolveAssemblyReferencesSilent>true</ResolveAssemblyReferencesSilent>
   </PropertyGroup>
 </Project>
