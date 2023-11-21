@@ -26,6 +26,6 @@ public static partial class VerifyImageMagick
             streams.Add(memoryStream);
         }
 
-        return new(null, streams.Select(x => new Target("png", x)));
+        return new(null, streams.Select(_ => new Target("png", _)));
     }
 }
