@@ -13,7 +13,6 @@ Converts documents pdfs to png for verification.
 Contains [comparers](https://github.com/VerifyTests/Verify/blob/master/docs/comparer.md) for png, jpg, bmp, and tiff.
 
 
-
 ## NuGet package
 
 https://nuget.org/packages/Verify.ImageMagick/
