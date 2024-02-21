@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using ImageMagick;
-
-namespace VerifyTestsImageMagick;
+﻿namespace VerifyTestsImageMagick;
 
 public static class ImageMagickSettings
 {

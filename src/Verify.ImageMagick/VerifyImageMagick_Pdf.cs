@@ -1,5 +1,4 @@
-﻿using ImageMagick;
-using VerifyTestsImageMagick;
+﻿using VerifyTestsImageMagick;
 
 namespace VerifyTests;
 

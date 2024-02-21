@@ -1,6 +1,4 @@
-﻿using ImageMagick;
-
-namespace VerifyTests;
+﻿namespace VerifyTests;
 
 public static partial class VerifyImageMagick
 {
