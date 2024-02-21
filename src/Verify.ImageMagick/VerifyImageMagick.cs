@@ -18,13 +18,58 @@ public static partial class VerifyImageMagick
         Initialized = true;
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        // VerifierSettings.RegisterFileConverter("svg", _ =>
-        // {
-        //     return new ConversionResult();
-        // });
+        FileExtensions.RemoveTextExtension("svg");
+        VerifierSettings.RegisterFileConverter(
+            "svg",
+            (stream, _) => ConvertSvg(stream));
         RegisterPdfToPngConverter();
         RegisterComparers();
     }
+
+    static ConversionResult ConvertSvg(Stream stream)
+    {
+        var svg = ReadSvg(stream);
+        var pngStream = new MemoryStream();
+        svg.Write(pngStream, MagickFormat.Png);
+        var targets = new List<Target>
+        {
+            new("svg", stream),
+            new("png", pngStream)
+        };
+
+        return new(null, targets);
+    }
+    //
+    // static ImageInfo BuildInfo(MagickImage image) =>
+    //     new()
+    //     {
+    //         Height = image.Height,
+    //         Width = image.Width,
+    //         Gamma = image.Gamma,
+    //         Depth = image.Depth,
+    //         Orientation = image.Orientation,
+    //         Label = image.Label,
+    //         Quality = image.Quality,
+    //         Comment = image.Comment,
+    //         Compression = image.Compression,
+    //         Density = image.Density.ToString(),
+    //         AnimationDelay = image.AnimationDelay,
+    //         AnimationIterations = image.AnimationIterations,
+    //         BaseWidth = image.BaseWidth,
+    //         BaseHeight = image.BaseHeight,
+    //         BackgroundColor = image.BackgroundColor?.ToString(),
+    //         BorderColor = image.BorderColor?.ToString(),
+    //         ChannelCount = image.ChannelCount,
+    //         ColorFuzz = image.ColorFuzz,
+    //         ColormapSize = image.ColormapSize,
+    //         ColorSpace = image.ColorSpace,
+    //         ColorType = image.ColorType,
+    //         HasAlpha = image.HasAlpha,
+    //         IsOpaque = image.IsOpaque,
+    //         MatteColor = image.MatteColor?.ToString(),
+    //         BlackPointCompensation = image.BlackPointCompensation,
+    //         AnimationTicksPerSecond = image.AnimationTicksPerSecond
+    //     };
 
     public static void RegisterPdfToPngConverter()
     {
@@ -53,11 +98,17 @@ public static partial class VerifyImageMagick
         return Compare(threshold, metric, receivedImage, verifiedImage);
     }
 
-    static MagickImage ReadSvg(string received)
+    static MagickImage ReadSvg(string contents)
     {
-        using var receivedStream = new MemoryStream(Encoding.UTF8.GetBytes(received));
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents));
+        return ReadSvg(stream);
+    }
+
+    static MagickImage ReadSvg(Stream stream)
+    {
+        stream.Position = 0;
         var image = new MagickImage();
-        image.Read(receivedStream, MagickFormat.Svg);
+        image.Read(stream, MagickFormat.Svg);
         return image;
     }
 
