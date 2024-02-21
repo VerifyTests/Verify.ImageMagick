@@ -1,8 +1,10 @@
-﻿#if Debug
+﻿
+using ImageMagick;
 
 [TestFixture]
 public class Tests
 {
+#if Debug
     [Test]
     public Task FailingCompare() =>
         ThrowsTask(async () =>
@@ -14,6 +16,27 @@ public class Tests
             })
             .IgnoreStackTrace()
             .ScrubLinesContaining("clipboard", "DiffEngineTray");
-}
-
 #endif
+
+    [Test]
+    public Task CompareSame()
+    {
+        var compare = VerifyImageMagick.Compare(
+            .0001,
+            ErrorMetric.Fuzz,
+            File.OpenRead("sample.jpg"),
+            File.OpenRead("sample.jpg"));
+        return Verify(compare);
+    }
+
+    [Test]
+    public Task CompareDifferent()
+    {
+        var compare = VerifyImageMagick.Compare(
+            .0001,
+            ErrorMetric.Fuzz,
+            File.OpenRead("sample.jpg"),
+            File.OpenRead("sample.png"));
+        return Verify(compare);
+    }
+}

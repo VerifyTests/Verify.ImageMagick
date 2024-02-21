@@ -1,0 +1,9 @@
+﻿{
+  IsEqual: false,
+  Message:
+diff(0.18227127674272672) > threshold(0.0001).
+If this difference is acceptable, use:
+
+ * Globally: VerifyImageMagick.RegisterComparers(0.19);
+ * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.19);
+}
