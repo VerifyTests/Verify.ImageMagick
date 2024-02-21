@@ -67,10 +67,13 @@ public static partial class VerifyImageMagick
         }
 
         var round = Math.Ceiling(diff * 100) / 100;
-        return Task.FromResult(CompareResult.NotEqual($@"diff({diff}) > threshold({threshold}).
-If this difference is acceptable, use:
+        return Task.FromResult(CompareResult.NotEqual(
+            $"""
+             diff({diff}) > threshold({threshold}).
+             If this difference is acceptable, use:
 
- * Globally: VerifyImageMagick.RegisterComparers({round});
- * For one test: Verifier.VerifyFile(""file.jpg"").RegisterComparers({round});"));
+              * Globally: VerifyImageMagick.RegisterComparers({round});
+              * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers({round});
+             """));
     }
 }
