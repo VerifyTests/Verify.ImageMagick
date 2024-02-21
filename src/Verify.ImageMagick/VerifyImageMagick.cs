@@ -18,6 +18,10 @@ public static partial class VerifyImageMagick
         Initialized = true;
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
+        // VerifierSettings.RegisterFileConverter("svg", _ =>
+        // {
+        //     return new ConversionResult();
+        // });
         RegisterPdfToPngConverter();
         RegisterComparers();
     }
@@ -39,17 +43,22 @@ public static partial class VerifyImageMagick
         RegisterComparer(threshold, metric, "tiff");
         VerifierSettings.RegisterStringComparer(
             "svg",
-            (received, verified, _) => Compares(threshold, metric, received, verified));
+            (received, verified, _) => CompareSvg(threshold, metric, received, verified));
     }
 
-    static Task<CompareResult> Compares(double threshold, ErrorMetric metric, string received, string verified)
+    static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified)
     {
-        var utf8 = Encoding.UTF8;
-        using var receivedStream = new MemoryStream(utf8.GetBytes(received));
-        using var verifiedStream = new MemoryStream(utf8.GetBytes(verified));
-        using var receivedImage = new MagickImage(receivedStream);
-        using var verifiedImage = new MagickImage(verifiedStream);
+        using var receivedImage = ReadSvg(received);
+        using var verifiedImage = ReadSvg(verified);
         return Compare(threshold, metric, receivedImage, verifiedImage);
+    }
+
+    static MagickImage ReadSvg(string received)
+    {
+        using var receivedStream = new MemoryStream(Encoding.UTF8.GetBytes(received));
+        var image = new MagickImage();
+        image.Read(receivedStream, MagickFormat.Svg);
+        return image;
     }
 
     internal static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)
