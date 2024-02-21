@@ -29,6 +29,10 @@ public class Samples
     }
 
     #endregion
+
+    [Test]
+    public Task VerifySvg() =>
+        VerifyFile("sample.svg");
 }
 
 #endif
