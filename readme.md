@@ -48,20 +48,20 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 #### Verify a file
 
 <!-- snippet: VerifyPdf -->
-<a id='snippet-verifypdf'></a>
+<a id='snippet-VerifyPdf'></a>
 ```cs
 [Test]
 public Task VerifyPdf() =>
     VerifyFile("sample.pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L14-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L14-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
 #### Verify a Stream
 
 <!-- snippet: VerifyPdfStream -->
-<a id='snippet-verifypdfstream'></a>
+<a id='snippet-VerifyPdfStream'></a>
 ```cs
 [Test]
 public Task VerifyPdfStream()
@@ -70,7 +70,7 @@ public Task VerifyPdfStream()
     return Verify(stream, "pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L22-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-verifypdfstream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L22-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -86,13 +86,13 @@ public Task VerifyPdfStream()
 The following will use ImageMagick to compare the images instead of the default binary comparison.
 
 <!-- snippet: CompareImage -->
-<a id='snippet-compareimage'></a>
+<a id='snippet-CompareImage'></a>
 ```cs
 [Test]
 public Task CompareImage() =>
     VerifyFile("sample.jpg");
 ```
-<sup><a href='/src/Tests/Samples.cs#L6-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-compareimage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L6-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareImage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
