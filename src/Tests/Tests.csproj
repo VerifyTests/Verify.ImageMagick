@@ -16,5 +16,26 @@
     <None Update="sample.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="transparent.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="TransparentSamples.VerifyPdf#00.verified.png">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>TransparentSamples.cs</DependentUpon>
+    </None>
+    <None Update="TransparentSamples.VerifyPdfStream#00.verified.png">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>TransparentSamples.cs</DependentUpon>
+    </None>
+    <None Update="TransparentSamples.VerifySvg.received.png">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>TransparentSamples.cs</DependentUpon>
+    </None>
+    <None Update="TransparentSamples.VerifySvg.verified.svg">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>TransparentSamples.cs</DependentUpon>
+    </None>
   </ItemGroup>
 </Project>
