@@ -1,4 +1,6 @@
-﻿namespace VerifyTests;
+using VerifyTestsImageMagick;
+
+namespace VerifyTests;
 
 public static partial class VerifyImageMagick
 {
@@ -21,14 +23,19 @@ public static partial class VerifyImageMagick
         FileExtensions.RemoveTextExtension("svg");
         VerifierSettings.RegisterFileConverter(
             "svg",
-            (stream, _) => ConvertSvg(stream));
+            ConvertSvg);
+        VerifierSettings.RegisterFileConverter(
+            "png",
+            (stream, context) => ConvertImage(stream, context, "png"));
+        VerifierSettings.RegisterFileConverter(
+            "tiff",
+            (stream, context) => ConvertImage(stream, context, "tiff"));
         RegisterPdfToPngConverter();
-        RegisterComparers();
     }
 
-    static ConversionResult ConvertSvg(Stream stream)
+    static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
     {
-        var svg = ReadSvg(stream);
+        var svg = ReadSvg(stream, context);
         var pngStream = new MemoryStream();
         svg.Write(pngStream, MagickFormat.Png);
         var targets = new List<Target>
@@ -38,6 +45,14 @@ public static partial class VerifyImageMagick
         };
 
         return new(null, targets);
+    }
+
+    static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension)
+    {
+        var image = ReadImage(stream, context);
+        var imageStream = new MemoryStream();
+        image.Write(imageStream);
+        return new(null, [new (extension, imageStream)]);
     }
     //
     // static ImageInfo BuildInfo(MagickImage image) =>
@@ -88,28 +103,33 @@ public static partial class VerifyImageMagick
         RegisterComparer(threshold, metric, "tiff");
         VerifierSettings.RegisterStringComparer(
             "svg",
-            (received, verified, _) => CompareSvg(threshold, metric, received, verified));
+            (received, verified, context) => CompareSvg(threshold, metric, received, verified, context));
     }
 
-    static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified)
+    static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified, IReadOnlyDictionary<string, object> context)
     {
-        using var receivedImage = ReadSvg(received);
-        using var verifiedImage = ReadSvg(verified);
+        using var receivedImage = ReadSvg(received, context);
+        using var verifiedImage = ReadSvg(verified, context);
         return Compare(threshold, metric, receivedImage, verifiedImage);
     }
 
-    static MagickImage ReadSvg(string contents)
+    static MagickImage ReadSvg(string contents, IReadOnlyDictionary<string, object> context)
     {
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents));
-        return ReadSvg(stream);
+        return ReadSvg(stream, context);
     }
 
-    static MagickImage ReadSvg(Stream stream)
+    static MagickImage ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
+        ReadImage(stream, context, MagickFormat.Svg);
+
+    static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format =  MagickFormat.Unknown)
     {
         stream.Position = 0;
         var image = new MagickImage();
-        image.Read(stream, MagickFormat.Svg);
-        return image;
+        var imageConversionSettings = context.ImageConversionSettings();
+        imageConversionSettings.Apply(image);
+        image.Read(stream, format);
+        return imageConversionSettings.ApplyAndFlatten(image);
     }
 
     internal static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)

@@ -1,4 +1,4 @@
-﻿using VerifyTestsImageMagick;
+using VerifyTestsImageMagick;
 
 namespace VerifyTests;
 
@@ -17,9 +17,11 @@ public static partial class VerifyImageMagick
             count = Math.Min(count, (int) pagesToInclude);
         }
 
+        var imageConversionSettings = context.ImageConversionSettings();
         for (var index = 0; index < count; index++)
         {
             var image = images[index];
+            image = imageConversionSettings.ApplyAndFlatten(image);
             var memoryStream = new MemoryStream();
             image.Write(memoryStream, MagickFormat.Png);
             streams.Add(memoryStream);
