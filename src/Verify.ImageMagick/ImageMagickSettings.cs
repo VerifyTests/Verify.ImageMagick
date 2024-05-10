@@ -1,7 +1,12 @@
-﻿namespace VerifyTestsImageMagick;
+namespace VerifyTestsImageMagick;
 
 public static class ImageMagickSettings
 {
+    private static ImageConversionSettings imageConversionSettings = new();
+
+    public static void UseImageConversionSettings(ImageConversionSettings settings) =>
+        imageConversionSettings = settings;
+
     public static void PagesToInclude(this VerifySettings settings, int count) =>
         settings.Context["ImageMagick.PagesToInclude"] = count;
 
@@ -43,5 +48,24 @@ public static class ImageMagickSettings
         {
             Density = new(100, 100)
         };
+    }
+
+    public static void ImageConversionSettings(this VerifySettings settings, ImageConversionSettings magickReadSettings) =>
+        settings.Context["ImageMagick.ImageConversionSettings"] = magickReadSettings;
+
+    public static SettingsTask ImageConversionSettings(this SettingsTask settings, ImageConversionSettings magickReadSettings)
+    {
+        settings.CurrentSettings.ImageConversionSettings(magickReadSettings);
+        return settings;
+    }
+
+    internal static ImageConversionSettings ImageConversionSettings(this IReadOnlyDictionary<string, object> context)
+    {
+        if (context.TryGetValue("ImageMagick.ImageConversionSettings", out var value))
+        {
+            return (ImageConversionSettings) value;
+        }
+
+        return imageConversionSettings;
     }
 }

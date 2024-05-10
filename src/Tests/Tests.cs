@@ -1,7 +1,8 @@
-﻿
+
 using ImageMagick;
 
 [TestFixture]
+[SetCulture("en-US")]
 public class Tests
 {
 #if Debug
