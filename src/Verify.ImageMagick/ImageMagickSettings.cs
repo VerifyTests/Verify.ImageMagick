@@ -2,7 +2,7 @@ namespace VerifyTestsImageMagick;
 
 public static class ImageMagickSettings
 {
-    private static ImageConversionSettings imageConversionSettings = new();
+    static ImageConversionSettings imageConversionSettings = new();
 
     public static void UseImageConversionSettings(ImageConversionSettings settings) =>
         imageConversionSettings = settings;

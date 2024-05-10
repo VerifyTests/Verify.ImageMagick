@@ -1,5 +1,3 @@
-using VerifyTestsImageMagick;
-
 namespace VerifyTests;
 
 public static partial class VerifyImageMagick

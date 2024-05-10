@@ -1,19 +1,20 @@
 #if DEBUG
 
-using ImageMagick;
-using VerifyTestsImageMagick;
-
 [TestFixture]
 public class TransparentSamples
 {
     [Test]
-    public Task TransparentSample([Values("png", "svg", "tiff", "pdf")]string format, [Values]Color backgroundColor) =>
-        VerifyFile($"transparent.{format}").ImageConversionSettings(new()
-        {
-            BackgroundColor = Map(backgroundColor)
-        });
+    public Task TransparentSample(
+        [Values("png", "svg", "tiff", "pdf")] string format,
+        [Values] Color backgroundColor) =>
+        VerifyFile($"transparent.{format}")
+            .ImageConversionSettings(
+                new()
+                {
+                    BackgroundColor = Map(backgroundColor)
+                });
 
-    private static MagickColor? Map(Color color) => color switch
+    static MagickColor? Map(Color color) => color switch
     {
         Color.None => null,
         Color.Transparent => MagickColors.Transparent,

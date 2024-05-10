@@ -11,6 +11,20 @@ public class Samples
 
     #endregion
 
+    #region BackgroundColor
+
+    [Test]
+    public Task BackgroundColor() =>
+        VerifyFile("transparent.png")
+            .ImageConversionSettings(
+                new()
+                {
+                    BackgroundColor = MagickColors.Transparent
+                });
+
+    #endregion
+
+
     #region VerifyPdf
 
     [Test]
