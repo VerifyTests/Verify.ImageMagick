@@ -2,10 +2,10 @@ namespace VerifyTestsImageMagick;
 
 public static class ImageMagickSettings
 {
-    static ImageConversionSettings imageConversionSettings = new();
+    static MagickColor? background;
 
-    public static void UseImageConversionSettings(ImageConversionSettings settings) =>
-        imageConversionSettings = settings;
+    public static void ImageMagickBackground(MagickColor color) =>
+        background = color;
 
     public static void PagesToInclude(this VerifySettings settings, int count) =>
         settings.Context["ImageMagick.PagesToInclude"] = count;
@@ -50,22 +50,22 @@ public static class ImageMagickSettings
         };
     }
 
-    public static void ImageConversionSettings(this VerifySettings settings, ImageConversionSettings magickReadSettings) =>
-        settings.Context["ImageMagick.ImageConversionSettings"] = magickReadSettings;
+    public static void ImageMagickBackground(this VerifySettings settings, MagickColor color) =>
+        settings.Context["ImageMagick.Background"] = color;
 
-    public static SettingsTask ImageConversionSettings(this SettingsTask settings, ImageConversionSettings magickReadSettings)
+    public static SettingsTask ImageMagickBackground(this SettingsTask settings, MagickColor color)
     {
-        settings.CurrentSettings.ImageConversionSettings(magickReadSettings);
+        settings.CurrentSettings.ImageMagickBackground(color);
         return settings;
     }
 
-    internal static ImageConversionSettings ImageConversionSettings(this IReadOnlyDictionary<string, object> context)
+    internal static MagickColor? Background(this IReadOnlyDictionary<string, object> context)
     {
-        if (context.TryGetValue("ImageMagick.ImageConversionSettings", out var value))
+        if (context.TryGetValue("ImageMagick.Background", out var value))
         {
-            return (ImageConversionSettings) value;
+            return (MagickColor?) value;
         }
 
-        return imageConversionSettings;
+        return background;
     }
 }

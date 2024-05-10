@@ -16,11 +16,7 @@ public class Samples
     [Test]
     public Task BackgroundColor() =>
         VerifyFile("transparent.png")
-            .ImageConversionSettings(
-                new()
-                {
-                    BackgroundColor = MagickColors.Transparent
-                });
+            .ImageMagickBackground(MagickColors.Blue);
 
     #endregion
 

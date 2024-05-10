@@ -54,7 +54,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 public Task VerifyPdf() =>
     VerifyFile("sample.pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L28-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -70,7 +70,7 @@ public Task VerifyPdfStream()
     return Verify(stream, "pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L36-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L32-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -98,11 +98,27 @@ public Task CompareImage() =>
 
 ### Register all comparers
 
-All comparers can be regietered:
+All comparers can be registered:
 
 ```
 VerifyImageMagick.RegisterComparers();
 ```
+
+
+### Override transparent background
+
+For images with a transparent background, that background can be overridden:
+
+<!-- snippet: BackgroundColor -->
+<a id='snippet-BackgroundColor'></a>
+```cs
+[Test]
+public Task BackgroundColor() =>
+    VerifyFile("transparent.png")
+        .ImageMagickBackground(MagickColors.Blue);
+```
+<sup><a href='/src/Tests/Samples.cs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-BackgroundColor' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 
 ## Icon

@@ -4,19 +4,19 @@
 public class TransparentSamples
 {
     [Test]
+    public Task TransparentNone(
+        [Values("png", "svg", "pdf")] string format) =>
+        VerifyFile($"transparent.{format}");
+
+    [Test]
     public Task TransparentSample(
         [Values("png", "svg", "pdf")] string format,
         [Values] Color backgroundColor) =>
         VerifyFile($"transparent.{format}")
-            .ImageConversionSettings(
-                new()
-                {
-                    BackgroundColor = Map(backgroundColor)
-                });
+            .ImageMagickBackground(Map(backgroundColor));
 
-    static MagickColor? Map(Color color) => color switch
+    static MagickColor Map(Color color) => color switch
     {
-        Color.None => null,
         Color.Transparent => MagickColors.Transparent,
         Color.Green => MagickColors.Green,
         Color.Blue => MagickColors.Blue,
@@ -25,7 +25,6 @@ public class TransparentSamples
 
     public enum Color
     {
-        None,
         Transparent,
         Green,
         Blue
