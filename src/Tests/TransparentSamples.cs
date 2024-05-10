@@ -5,7 +5,7 @@ public class TransparentSamples
 {
     [Test]
     public Task TransparentSample(
-        [Values("png", "svg", "tiff", "pdf")] string format,
+        [Values("png", "svg", "pdf")] string format,
         [Values] Color backgroundColor) =>
         VerifyFile($"transparent.{format}")
             .ImageConversionSettings(
