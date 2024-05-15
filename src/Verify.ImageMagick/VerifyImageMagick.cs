@@ -120,8 +120,20 @@ public static partial class VerifyImageMagick
     static MagickImage ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
         ReadImage(stream, context, MagickFormat.Svg);
 
-    static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format = MagickFormat.Unknown)
+    static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format =  MagickFormat.Unknown)
     {
+        if (!stream.CanSeek)
+        {
+            var previousStream = stream;
+            stream = new MemoryStream();
+            previousStream.CopyTo(stream);
+        }
+
+        if (stream.Position != 0)
+        {
+            stream.Position = 0;
+        }
+
         var image = new MagickImage();
         var background = context.Background();
         ApplyBackgroundColor(image, background);
