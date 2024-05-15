@@ -122,7 +122,6 @@ public static partial class VerifyImageMagick
 
     static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format =  MagickFormat.Unknown)
     {
-        stream.Position = 0;
         var image = new MagickImage();
         var background = context.Background();
         ApplyBackgroundColor(image, background);
