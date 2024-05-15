@@ -50,7 +50,7 @@ public static partial class VerifyImageMagick
         var image = ReadImage(stream, context);
         var imageStream = new MemoryStream();
         image.Write(imageStream);
-        return new(null, [new (extension, imageStream)]);
+        return new(null, [new(extension, imageStream)]);
     }
     //
     // static ImageInfo BuildInfo(MagickImage image) =>
@@ -120,7 +120,7 @@ public static partial class VerifyImageMagick
     static MagickImage ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
         ReadImage(stream, context, MagickFormat.Svg);
 
-    static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format =  MagickFormat.Unknown)
+    static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format = MagickFormat.Unknown)
     {
         var image = new MagickImage();
         var background = context.Background();
@@ -136,6 +136,7 @@ public static partial class VerifyImageMagick
             image.BackgroundColor = color;
         }
     }
+
     static MagickImage ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? color)
     {
         var result = image;
@@ -148,9 +149,10 @@ public static partial class VerifyImageMagick
             result = collection.Flatten(color);
         }
 
-        return new (result);
+        return new(result);
 
     }
+
     internal static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)
     {
         using var receivedImage = new MagickImage(received);
