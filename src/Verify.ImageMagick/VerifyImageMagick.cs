@@ -52,37 +52,6 @@ public static partial class VerifyImageMagick
         image.Write(imageStream);
         return new(null, [new(extension, imageStream)]);
     }
-    //
-    // static ImageInfo BuildInfo(MagickImage image) =>
-    //     new()
-    //     {
-    //         Height = image.Height,
-    //         Width = image.Width,
-    //         Gamma = image.Gamma,
-    //         Depth = image.Depth,
-    //         Orientation = image.Orientation,
-    //         Label = image.Label,
-    //         Quality = image.Quality,
-    //         Comment = image.Comment,
-    //         Compression = image.Compression,
-    //         Density = image.Density.ToString(),
-    //         AnimationDelay = image.AnimationDelay,
-    //         AnimationIterations = image.AnimationIterations,
-    //         BaseWidth = image.BaseWidth,
-    //         BaseHeight = image.BaseHeight,
-    //         BackgroundColor = image.BackgroundColor?.ToString(),
-    //         BorderColor = image.BorderColor?.ToString(),
-    //         ChannelCount = image.ChannelCount,
-    //         ColorFuzz = image.ColorFuzz,
-    //         ColormapSize = image.ColormapSize,
-    //         ColorSpace = image.ColorSpace,
-    //         ColorType = image.ColorType,
-    //         HasAlpha = image.HasAlpha,
-    //         IsOpaque = image.IsOpaque,
-    //         MatteColor = image.MatteColor?.ToString(),
-    //         BlackPointCompensation = image.BlackPointCompensation,
-    //         AnimationTicksPerSecond = image.AnimationTicksPerSecond
-    //     };
 
     public static void RegisterPdfToPngConverter()
     {
@@ -197,4 +166,37 @@ public static partial class VerifyImageMagick
                   * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers({round});
                  """));
     }
+
+
+    //
+    // static ImageInfo BuildInfo(MagickImage image) =>
+    //     new()
+    //     {
+    //         Height = image.Height,
+    //         Width = image.Width,
+    //         Gamma = image.Gamma,
+    //         Depth = image.Depth,
+    //         Orientation = image.Orientation,
+    //         Label = image.Label,
+    //         Quality = image.Quality,
+    //         Comment = image.Comment,
+    //         Compression = image.Compression,
+    //         Density = image.Density.ToString(),
+    //         AnimationDelay = image.AnimationDelay,
+    //         AnimationIterations = image.AnimationIterations,
+    //         BaseWidth = image.BaseWidth,
+    //         BaseHeight = image.BaseHeight,
+    //         BackgroundColor = image.BackgroundColor?.ToString(),
+    //         BorderColor = image.BorderColor?.ToString(),
+    //         ChannelCount = image.ChannelCount,
+    //         ColorFuzz = image.ColorFuzz,
+    //         ColormapSize = image.ColormapSize,
+    //         ColorSpace = image.ColorSpace,
+    //         ColorType = image.ColorType,
+    //         HasAlpha = image.HasAlpha,
+    //         IsOpaque = image.IsOpaque,
+    //         MatteColor = image.MatteColor?.ToString(),
+    //         BlackPointCompensation = image.BlackPointCompensation,
+    //         AnimationTicksPerSecond = image.AnimationTicksPerSecond
+    //     };
 }
