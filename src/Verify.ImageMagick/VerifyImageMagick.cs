@@ -24,10 +24,10 @@ public static partial class VerifyImageMagick
             ConvertSvg);
         VerifierSettings.RegisterFileConverter(
             "png",
-            (stream, context) => ConvertImage(stream, context, "png"));
+            (stream, context) => ConvertImage(stream, context, "png", MagickFormat.Png));
         VerifierSettings.RegisterFileConverter(
             "tiff",
-            (stream, context) => ConvertImage(stream, context, "tiff"));
+            (stream, context) => ConvertImage(stream, context, "tiff", MagickFormat.Tiff));
         RegisterPdfToPngConverter();
     }
 
@@ -45,9 +45,9 @@ public static partial class VerifyImageMagick
         return new(null, targets);
     }
 
-    static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension)
+    static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
     {
-        var image = ReadImage(stream, context);
+        var image = ReadImage(stream, context, format);
         var imageStream = new MemoryStream();
         image.Write(imageStream);
         return new(null, [new(extension, imageStream)]);
@@ -89,7 +89,7 @@ public static partial class VerifyImageMagick
     static IMagickImage<ushort> ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
         ReadImage(stream, context, MagickFormat.Svg);
 
-    static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format = MagickFormat.Unknown)
+    static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
     {
         if (!stream.CanSeek)
         {
