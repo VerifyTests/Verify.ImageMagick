@@ -2,6 +2,14 @@ namespace VerifyTests;
 
 public static partial class VerifyImageMagick
 {
+    public static void RegisterPdfToPngConverter()
+    {
+        InnerVerifier.ThrowIfVerifyHasBeenRun();
+        VerifierSettings.RegisterFileConverter(
+            "pdf",
+            (stream, context) => Convert(stream, context, MagickFormat.Pdf));
+    }
+
     static ConversionResult Convert(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
     {
         var streams = new List<Stream>();

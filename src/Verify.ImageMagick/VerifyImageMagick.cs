@@ -31,46 +31,6 @@ public static partial class VerifyImageMagick
         RegisterPdfToPngConverter();
     }
 
-    static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
-    {
-        stream = WrapStream(stream);
-        var background = context.Background();
-        if (background == null)
-        {
-            var svg = new MagickImage(stream, MagickFormat.Svg);
-            var pngStream = new MemoryStream();
-            svg.Write(pngStream, MagickFormat.Png);
-
-            return new(
-                null,
-                new List<Target>
-                {
-                    new("svg", stream),
-                    new("png", pngStream)
-                });
-        }
-        else
-        {
-            var image = new MagickImage(
-                stream,
-                new MagickReadSettings
-                {
-                    BackgroundColor = background,
-                    Format = MagickFormat.Svg
-                });
-            var svg = Flatten(image, background);
-            var pngStream = new MemoryStream();
-            svg.Write(pngStream, MagickFormat.Png);
-            return new(
-                null,
-                new List<Target>
-                {
-                    new("svg", stream),
-                    new("png", pngStream)
-                });
-        }
-    }
-
     static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
     {
         var background = context.Background();
@@ -99,14 +59,6 @@ public static partial class VerifyImageMagick
         return flattened;
     }
 
-    public static void RegisterPdfToPngConverter()
-    {
-        InnerVerifier.ThrowIfVerifyHasBeenRun();
-        VerifierSettings.RegisterFileConverter(
-            "pdf",
-            (stream, context) => Convert(stream, context, MagickFormat.Pdf));
-    }
-
     public static void RegisterComparers(double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
@@ -118,16 +70,6 @@ public static partial class VerifyImageMagick
             "svg",
             (received, verified, _) => CompareSvg(threshold, metric, received, verified));
     }
-
-    static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified)
-    {
-        using var receivedImage = ReadSvg(received);
-        using var verifiedImage = ReadSvg(verified);
-        return Compare(threshold, metric, receivedImage, verifiedImage);
-    }
-
-    static MagickImage ReadSvg(string content) =>
-        new(Encoding.UTF8.GetBytes(content), MagickFormat.Svg);
 
     static Stream WrapStream(Stream stream)
     {
