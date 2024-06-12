@@ -91,6 +91,21 @@ public static partial class VerifyImageMagick
 
     static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
     {
+        stream = WrapStream(stream);
+
+        var image = new MagickImage();
+        var background = context.Background();
+        if (background != null)
+        {
+            image.BackgroundColor = background;
+        }
+
+        image.Read(stream, format);
+        return ApplyBackgroundColorAndFlatten(image, background);
+    }
+
+    static Stream WrapStream(Stream stream)
+    {
         if (!stream.CanSeek)
         {
             var previousStream = stream;
@@ -103,15 +118,7 @@ public static partial class VerifyImageMagick
             stream.Position = 0;
         }
 
-        var image = new MagickImage();
-        var background = context.Background();
-        if (background != null)
-        {
-            image.BackgroundColor = background;
-        }
-
-        image.Read(stream, format);
-        return ApplyBackgroundColorAndFlatten(image, background);
+        return stream;
     }
 
     static IMagickImage<ushort> ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
