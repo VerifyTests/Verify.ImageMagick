@@ -19,7 +19,11 @@ public static partial class VerifyImageMagick
         for (var index = 0; index < count; index++)
         {
             var image = images[index];
-            image = ApplyBackgroundColorAndFlatten(image, background);
+            if (background != null)
+            {
+                image = Flatten(image, background);
+            }
+
             var memoryStream = new MemoryStream();
             image.Write(memoryStream, MagickFormat.Png);
             streams.Add(memoryStream);

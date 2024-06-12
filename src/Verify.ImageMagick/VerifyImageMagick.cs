@@ -34,50 +34,69 @@ public static partial class VerifyImageMagick
     static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
     {
         stream = WrapStream(stream);
-        var svg = ReadImage(stream, context, MagickFormat.Svg);
-        var pngStream = new MemoryStream();
-        svg.Write(pngStream, MagickFormat.Png);
-        var targets = new List<Target>
+        var background = context.Background();
+        if (background == null)
         {
-            new("svg", stream),
-            new("png", pngStream)
-        };
+            var svg = new MagickImage(stream, MagickFormat.Svg);
+            var pngStream = new MemoryStream();
+            svg.Write(pngStream, MagickFormat.Png);
 
-        return new(null, targets);
+            return new(
+                null,
+                new List<Target>
+                {
+                    new("svg", stream),
+                    new("png", pngStream)
+                });
+        }
+        else
+        {
+            var image = new MagickImage(
+                stream,
+                new MagickReadSettings
+                {
+                    BackgroundColor = background,
+                    Format = MagickFormat.Svg
+                });
+            var svg = Flatten(image, background);
+            var pngStream = new MemoryStream();
+            svg.Write(pngStream, MagickFormat.Png);
+            return new(
+                null,
+                new List<Target>
+                {
+                    new("svg", stream),
+                    new("png", pngStream)
+                });
+        }
     }
 
     static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
     {
-        stream = WrapStream(stream);
-        var image = ReadImage(stream, context, format);
-        var imageStream = new MemoryStream();
-        image.Write(imageStream);
-        return new(null, [new(extension, imageStream)]);
-    }
-
-    static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
-    {
-        var image = new MagickImage();
         var background = context.Background();
-        image.Read(
-            stream,
+        if (background == null)
+        {
+            return new(null, [new(extension, stream)]);
+        }
+
+        var image = new MagickImage(
+            WrapStream(stream),
             new MagickReadSettings
             {
                 BackgroundColor = background,
                 Format = format
             });
-        return ApplyBackgroundColorAndFlatten(image, background);
+        var flattened = Flatten(image, background);
+        var imageStream = new MemoryStream();
+        flattened.Write(imageStream);
+        return new(null, [new(extension, imageStream)]);
     }
 
-    static IMagickImage<ushort> ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
+    static IMagickImage<ushort> Flatten(IMagickImage<ushort> image, MagickColor background)
     {
-        if (background == null)
-        {
-            return image;
-        }
-
         var collection = new MagickImageCollection([image]);
-        return collection.Flatten(background);
+        var flattened = collection.Flatten(background);
+        return flattened;
     }
 
     public static void RegisterPdfToPngConverter()
