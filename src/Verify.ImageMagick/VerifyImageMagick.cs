@@ -33,7 +33,7 @@ public static partial class VerifyImageMagick
 
     static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
     {
-        var svg = ReadSvg(stream, context);
+        var svg = ReadImage(stream, context, MagickFormat.Svg);
         var pngStream = new MemoryStream();
         svg.Write(pngStream, MagickFormat.Png);
         var targets = new List<Target>
@@ -75,13 +75,13 @@ public static partial class VerifyImageMagick
 
     static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified)
     {
-        var receivedImage = new MagickImage(Encoding.UTF8.GetBytes(received), MagickFormat.Svg);
-        var verifiedImage = new MagickImage(Encoding.UTF8.GetBytes(verified), MagickFormat.Svg);
+        using var receivedImage = ReadSvg(received);
+        using var verifiedImage = ReadSvg(verified);
         return Compare(threshold, metric, receivedImage, verifiedImage);
     }
 
-    static IMagickImage<ushort> ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
-        ReadImage(stream, context, MagickFormat.Svg);
+    static MagickImage ReadSvg(string content) =>
+        new(Encoding.UTF8.GetBytes(content), MagickFormat.Svg);
 
     static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
     {
