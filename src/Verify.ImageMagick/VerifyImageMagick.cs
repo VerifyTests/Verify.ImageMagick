@@ -111,16 +111,16 @@ public static partial class VerifyImageMagick
         return Compare(threshold, metric, receivedImage, verifiedImage);
     }
 
-    static MagickImage ReadSvg(string contents, IReadOnlyDictionary<string, object> context)
+    static IMagickImage<ushort> ReadSvg(string contents, IReadOnlyDictionary<string, object> context)
     {
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents));
         return ReadSvg(stream, context);
     }
 
-    static MagickImage ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
+    static IMagickImage<ushort> ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
         ReadImage(stream, context, MagickFormat.Svg);
 
-    static MagickImage ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format = MagickFormat.Unknown)
+    static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format = MagickFormat.Unknown)
     {
         if (!stream.CanSeek)
         {
@@ -145,15 +145,15 @@ public static partial class VerifyImageMagick
         return ApplyBackgroundColorAndFlatten(image, background);
     }
 
-    static MagickImage ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
+    static IMagickImage<ushort> ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
     {
         if (background == null)
         {
-            return new(image);
+            return new MagickImage(image);
         }
 
         var collection = new MagickImageCollection([image]);
-        return new(collection.Flatten(background));
+        return new MagickImage(collection.Flatten(background));
     }
 
     internal static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)
