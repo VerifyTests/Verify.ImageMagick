@@ -176,7 +176,7 @@ public static partial class VerifyImageMagick
             extension,
             (received, verified, _) => Compare(threshold, metric, received, verified));
 
-    static Task<CompareResult> Compare(double threshold, ErrorMetric metric, MagickImage received, MagickImage verified)
+    static Task<CompareResult> Compare(double threshold, ErrorMetric metric, IMagickImage<ushort> received, IMagickImage<ushort> verified)
     {
         //https://imagemagick.org/script/command-line-options.php#metric
         var diff = received.Compare(verified, metric);
