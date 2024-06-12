@@ -55,6 +55,31 @@ public static partial class VerifyImageMagick
         return new(null, [new(extension, imageStream)]);
     }
 
+    static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
+    {
+        var image = new MagickImage();
+        var background = context.Background();
+        image.Read(
+            stream,
+            new MagickReadSettings
+            {
+                BackgroundColor = background,
+                Format = format
+            });
+        return ApplyBackgroundColorAndFlatten(image, background);
+    }
+
+    static IMagickImage<ushort> ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
+    {
+        if (background == null)
+        {
+            return image;
+        }
+
+        var collection = new MagickImageCollection([image]);
+        return collection.Flatten(background);
+    }
+
     public static void RegisterPdfToPngConverter()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
@@ -85,19 +110,6 @@ public static partial class VerifyImageMagick
     static MagickImage ReadSvg(string content) =>
         new(Encoding.UTF8.GetBytes(content), MagickFormat.Svg);
 
-    static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
-    {
-        var image = new MagickImage();
-        var background = context.Background();
-        if (background != null)
-        {
-            image.BackgroundColor = background;
-        }
-
-        image.Read(stream, format);
-        return ApplyBackgroundColorAndFlatten(image, background);
-    }
-
     static Stream WrapStream(Stream stream)
     {
         if (!stream.CanSeek)
@@ -113,17 +125,6 @@ public static partial class VerifyImageMagick
         }
 
         return stream;
-    }
-
-    static IMagickImage<ushort> ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
-    {
-        if (background == null)
-        {
-            return new MagickImage(image);
-        }
-
-        var collection = new MagickImageCollection([image]);
-        return new MagickImage(collection.Flatten(background));
     }
 
     internal static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)
