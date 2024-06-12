@@ -33,6 +33,7 @@ public static partial class VerifyImageMagick
 
     static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
     {
+        stream = WrapStream(stream);
         var svg = ReadImage(stream, context, MagickFormat.Svg);
         var pngStream = new MemoryStream();
         svg.Write(pngStream, MagickFormat.Png);
@@ -47,6 +48,7 @@ public static partial class VerifyImageMagick
 
     static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
     {
+        stream = WrapStream(stream);
         var image = ReadImage(stream, context, format);
         var imageStream = new MemoryStream();
         image.Write(imageStream);
@@ -85,8 +87,6 @@ public static partial class VerifyImageMagick
 
     static IMagickImage<ushort> ReadImage(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat format)
     {
-        stream = WrapStream(stream);
-
         var image = new MagickImage();
         var background = context.Background();
         if (background != null)
