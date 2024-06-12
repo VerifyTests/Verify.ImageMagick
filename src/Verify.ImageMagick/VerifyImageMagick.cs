@@ -70,20 +70,14 @@ public static partial class VerifyImageMagick
         RegisterComparer(threshold, metric, "tiff");
         VerifierSettings.RegisterStringComparer(
             "svg",
-            (received, verified, context) => CompareSvg(threshold, metric, received, verified, context));
+            (received, verified, _) => CompareSvg(threshold, metric, received, verified));
     }
 
-    static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified, IReadOnlyDictionary<string, object> context)
+    static Task<CompareResult> CompareSvg(double threshold, ErrorMetric metric, string received, string verified)
     {
-        using var receivedImage = ReadSvg(received, context);
-        using var verifiedImage = ReadSvg(verified, context);
+        var receivedImage = new MagickImage(Encoding.UTF8.GetBytes(received), MagickFormat.Svg);
+        var verifiedImage = new MagickImage(Encoding.UTF8.GetBytes(verified), MagickFormat.Svg);
         return Compare(threshold, metric, receivedImage, verifiedImage);
-    }
-
-    static IMagickImage<ushort> ReadSvg(string contents, IReadOnlyDictionary<string, object> context)
-    {
-        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(contents));
-        return ReadSvg(stream, context);
     }
 
     static IMagickImage<ushort> ReadSvg(Stream stream, IReadOnlyDictionary<string, object> context) =>
