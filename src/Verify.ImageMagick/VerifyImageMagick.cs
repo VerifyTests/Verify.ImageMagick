@@ -145,15 +145,15 @@ public static partial class VerifyImageMagick
         return ApplyBackgroundColorAndFlatten(image, background);
     }
 
-    static MagickImage ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? color)
+    static MagickImage ApplyBackgroundColorAndFlatten(IMagickImage<ushort> image, MagickColor? background)
     {
-        if (color == null)
+        if (background == null)
         {
             return new(image);
         }
 
         var collection = new MagickImageCollection([image]);
-        return new(collection.Flatten(color));
+        return new(collection.Flatten(background));
     }
 
     internal static Task<CompareResult> Compare(double threshold, ErrorMetric metric, Stream received, Stream verified)
