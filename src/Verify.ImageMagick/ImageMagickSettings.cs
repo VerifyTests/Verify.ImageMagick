@@ -3,6 +3,7 @@ namespace VerifyTestsImageMagick;
 public static class ImageMagickSettings
 {
     static MagickColor? background;
+    static string? pdfPassword;
 
     public static void ImageMagickBackground(MagickColor color) =>
         background = color;
@@ -67,5 +68,25 @@ public static class ImageMagickSettings
         }
 
         return background;
+    }
+
+
+    public static void ImageMagickPdfPassword(this VerifySettings settings, string password) =>
+        settings.Context["ImageMagick.PdfPassword"] = password;
+
+    public static SettingsTask ImageMagickPdfPassword(this SettingsTask settings, string password)
+    {
+        settings.CurrentSettings.ImageMagickPdfPassword(password);
+        return settings;
+    }
+
+    internal static string? PdfPassword(this IReadOnlyDictionary<string, object> context)
+    {
+        if (context.TryGetValue("ImageMagick.PdfPassword", out var value))
+        {
+            return (string?) value;
+        }
+
+        return pdfPassword;
     }
 }
