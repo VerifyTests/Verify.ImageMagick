@@ -124,7 +124,7 @@ public Task BackgroundColor() =>
 
 ### Open password-protected PDFs
 
-For images with a transparent background, that background can be overridden:
+For password-protected PDF, the password can be provided to allow verification:
 
 <!-- snippet: PdfPassword -->
 <a id='snippet-PdfPassword'></a>
