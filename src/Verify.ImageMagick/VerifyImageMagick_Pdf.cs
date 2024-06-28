@@ -1,3 +1,5 @@
+using ImageMagick.Formats;
+
 namespace VerifyTests;
 
 public static partial class VerifyImageMagick
@@ -15,6 +17,14 @@ public static partial class VerifyImageMagick
         var streams = new List<Stream>();
         var magickSettings = context.MagickReadSettings();
         magickSettings.Format = magickFormat;
+        var password = context.PdfPassword();
+        if (password != null)
+        {
+            magickSettings.SetDefines(new PdfReadDefines
+            {
+                Password = password
+            });
+        }
         using var images = new MagickImageCollection();
         images.Read(stream, magickSettings);
         var count = images.Count;

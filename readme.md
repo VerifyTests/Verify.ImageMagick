@@ -54,7 +54,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 public Task VerifyPdf() =>
     VerifyFile("sample.pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L32-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -70,7 +70,7 @@ public Task VerifyPdfStream()
     return Verify(stream, "pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L32-L41' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L40-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -120,6 +120,22 @@ public Task BackgroundColor() =>
 <sup><a href='/src/Tests/Samples.cs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-BackgroundColor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+
+
+### Open password-protected PDFs
+
+For images with a transparent background, that background can be overridden:
+
+<!-- snippet: PdfPassword -->
+<a id='snippet-PdfPassword'></a>
+```cs
+[Test]
+public Task PdfPassword() =>
+    VerifyFile("password.pdf")
+        .ImageMagickPdfPassword("password");
+```
+<sup><a href='/src/Tests/Samples.cs#L23-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-PdfPassword' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
 
 ## Icon
 

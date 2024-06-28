@@ -1,4 +1,4 @@
-﻿#if DEBUG
+#if DEBUG
 
 [TestFixture]
 public class Samples
@@ -20,6 +20,14 @@ public class Samples
 
     #endregion
 
+    #region PdfPassword
+
+    [Test]
+    public Task PdfPassword() =>
+        VerifyFile("password.pdf")
+            .ImageMagickPdfPassword("password");
+
+    #endregion
 
     #region VerifyPdf
 
