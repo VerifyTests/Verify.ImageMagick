@@ -27,7 +27,7 @@ https://nuget.org/packages/Verify.ImageMagick/
 public static void Init()
 {
     VerifyImageMagick.Initialize();
-    VerifyImageMagick.RegisterComparers(0.05);
+    VerifyImageMagick.RegisterComparers(threshold: 0.05);
 }
 ```
 <sup><a href='/src/Tests/ModuleInitializer.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
