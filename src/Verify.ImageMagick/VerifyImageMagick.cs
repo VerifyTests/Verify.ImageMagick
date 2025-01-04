@@ -2,10 +2,6 @@ namespace VerifyTests;
 
 public static partial class VerifyImageMagick
 {
-    /// <summary>
-    /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
-    /// <see cref="RegisterComparers"/>(threshold = .005, metric = ErrorMetric.Fuzz)
-    /// </summary>
     public static bool Initialized { get; private set; }
 
     public static void Initialize()
@@ -95,10 +91,18 @@ public static partial class VerifyImageMagick
         return Compare(threshold, metric, receivedImage, verifiedImage);
     }
 
+    /// <summary>
+    /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
+    /// <see cref="RegisterComparers"/>(threshold = .005, metric = ErrorMetric.Fuzz)
+    /// </summary>
     public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
         settings.UseStreamComparer(
             (received, verified, _) => Compare(threshold, metric, received, verified));
 
+    /// <summary>
+    /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
+    /// <see cref="RegisterComparers"/>(threshold = .005, metric = ErrorMetric.Fuzz)
+    /// </summary>
     public static SettingsTask ImageMagickComparer(this SettingsTask settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
         settings.UseStreamComparer(
             (received, verified, _) => Compare(threshold, metric, received, verified));
