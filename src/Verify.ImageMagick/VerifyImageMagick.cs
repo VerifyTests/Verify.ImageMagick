@@ -51,8 +51,7 @@ public static partial class VerifyImageMagick
     static IMagickImage<ushort> Flatten(IMagickImage<ushort> image, MagickColor background)
     {
         var collection = new MagickImageCollection([image]);
-        var flattened = collection.Flatten(background);
-        return flattened;
+        return collection.Flatten(background);
     }
 
     public static void RegisterComparers(double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
