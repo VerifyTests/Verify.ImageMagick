@@ -5,12 +5,12 @@ public static partial class VerifyImageMagick
     public static void RegisterPdfToPngConverter()
     {
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "pdf",
-            (stream, context) => Convert(stream, context, MagickFormat.Pdf));
+            (name, stream, context) => Convert(name, stream, context, MagickFormat.Pdf));
     }
 
-    static ConversionResult Convert(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
+    static ConversionResult Convert(string? name, Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
     {
         var streams = new List<Stream>();
         var magickSettings = context.MagickReadSettings();
@@ -47,6 +47,6 @@ public static partial class VerifyImageMagick
             streams.Add(memoryStream);
         }
 
-        return new(null, streams.Select(_ => new Target("png", _)));
+        return new(null, streams.Select(_ => new Target("png", _, name)));
     }
 }

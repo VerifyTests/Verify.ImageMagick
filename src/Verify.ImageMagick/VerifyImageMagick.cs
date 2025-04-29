@@ -15,24 +15,24 @@ public static partial class VerifyImageMagick
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         FileExtensions.RemoveTextExtension("svg");
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "svg",
             ConvertSvg);
-        VerifierSettings.RegisterFileConverter(
+        VerifierSettings.RegisterStreamConverter(
             "png",
-            (stream, context) => ConvertImage(stream, context, "png", MagickFormat.Png));
-        VerifierSettings.RegisterFileConverter(
+            (name, stream, context) => ConvertImage(name, stream, context, "png", MagickFormat.Png));
+        VerifierSettings.RegisterStreamConverter(
             "tiff",
-            (stream, context) => ConvertImage(stream, context, "tiff", MagickFormat.Tiff));
+            (name, stream, context) => ConvertImage(name, stream, context, "tiff", MagickFormat.Tiff));
         RegisterPdfToPngConverter();
     }
 
-    static ConversionResult ConvertImage(Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
+    static ConversionResult ConvertImage(string? name, Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
     {
         var background = context.Background();
         if (background == null)
         {
-            return new(null, [new(extension, stream)]);
+            return new(null, [new(extension, stream, name)]);
         }
 
         var image = new MagickImage(
@@ -45,7 +45,7 @@ public static partial class VerifyImageMagick
         var flattened = Flatten(image, background);
         var imageStream = new MemoryStream();
         flattened.Write(imageStream);
-        return new(null, [new(extension, imageStream)]);
+        return new(null, [new(extension, imageStream, name)]);
     }
 
     static IMagickImage<ushort> Flatten(IMagickImage<ushort> image, MagickColor background)

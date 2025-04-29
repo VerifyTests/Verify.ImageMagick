@@ -2,7 +2,7 @@ namespace VerifyTests;
 
 public static partial class VerifyImageMagick
 {
-    static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
+    static ConversionResult ConvertSvg(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
     {
         stream = WrapStream(stream);
         using var svg = ReadSvgStream(stream, context);
@@ -13,8 +13,8 @@ public static partial class VerifyImageMagick
         return new(
             null,
             [
-                new("svg", stream),
-                new("png", pngStream)
+                new("svg", stream, name),
+                new("png", pngStream, name)
             ]);
     }
 
