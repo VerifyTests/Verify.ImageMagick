@@ -12,11 +12,10 @@ public static partial class VerifyImageMagick
 
         return new(
             null,
-            new List<Target>
-            {
+            [
                 new("svg", stream),
                 new("png", pngStream)
-            });
+            ]);
     }
 
     static IMagickImage<ushort> ReadSvgStream(Stream stream, IReadOnlyDictionary<string, object> context)
