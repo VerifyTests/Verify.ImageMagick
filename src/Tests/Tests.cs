@@ -29,6 +29,19 @@ public class Tests
     }
 
     [Test]
+    public Task ShouldNotMessWithTargetName() =>
+        Verify(new Target("png", File.OpenRead("sample.jpg"), "name"));
+
+    [Test]
+    public Task ShouldNotMessWithTargetNames() =>
+        Verify(
+            targets:
+            [
+                new("png", File.OpenRead("sample.jpg"), "name1"),
+                new("png", File.OpenRead("sample.jpg"), "name2")
+            ]);
+
+    [Test]
     public Task CompareDifferent()
     {
         var compare = VerifyImageMagick.Compare(
@@ -38,4 +51,12 @@ public class Tests
             File.OpenRead("sample.png"));
         return Verify(compare);
     }
+
+    [Test]
+    public Task VerifyPdf() =>
+        VerifyFile("sample.pdf");
+
+    [Test]
+    public Task VerifyPdfWithName() =>
+        Verify(targets: [new("pdf", File.OpenRead("sample.pdf"), "name")]);
 }
