@@ -129,7 +129,7 @@ public static partial class VerifyImageMagick
                  If this difference is acceptable, use:
 
                   * Globally: VerifyImageMagick.RegisterComparers({round});
-                  * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers({round});
+                  * For one test: Verifier.VerifyFile("file.jpg").ImageMagickComparer({round});
                  """));
     }
 

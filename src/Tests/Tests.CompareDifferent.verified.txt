@@ -5,5 +5,5 @@ diff(0.03612685510802296) > threshold(0.0001).
 If this difference is acceptable, use:
 
  * Globally: VerifyImageMagick.RegisterComparers(0.04);
- * For one test: Verifier.VerifyFile("file.jpg").RegisterComparers(0.04);
+ * For one test: Verifier.VerifyFile("file.jpg").ImageMagickComparer(0.04);
 }
