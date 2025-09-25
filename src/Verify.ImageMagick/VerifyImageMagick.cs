@@ -96,15 +96,18 @@ public static partial class VerifyImageMagick
     /// </summary>
     public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
         settings.UseStreamComparer(
-            (received, verified, _) => Compare(threshold, metric, received, verified));
+            (received, verified, _) => Compare(threshold, metric, received, verified),
+            extensions: ["png", "jpg", "bmp", "tiff"]);
 
     /// <summary>
     /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
     /// <see cref="RegisterComparers"/>(threshold = .005, metric = ErrorMetric.Fuzz)
     /// </summary>
-    public static SettingsTask ImageMagickComparer(this SettingsTask settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
-        settings.UseStreamComparer(
-            (received, verified, _) => Compare(threshold, metric, received, verified));
+    public static SettingsTask ImageMagickComparer(this SettingsTask settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz)
+    {
+        settings.CurrentSettings.ImageMagickComparer(threshold, metric);
+        return settings;
+    }
 
     public static void RegisterComparer(double threshold, ErrorMetric metric, string extension) =>
         VerifierSettings.RegisterStreamComparer(
@@ -132,7 +135,6 @@ public static partial class VerifyImageMagick
                   * For one test: Verifier.VerifyFile("file.jpg").ImageMagickComparer({round});
                  """));
     }
-
 
     //
     // static ImageInfo BuildInfo(MagickImage image) =>
