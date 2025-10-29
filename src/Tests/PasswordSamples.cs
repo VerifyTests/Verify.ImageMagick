@@ -1,5 +1,3 @@
-#if DEBUG
-
 [TestFixture]
 public class PasswordSamples
 {
@@ -8,5 +6,3 @@ public class PasswordSamples
         VerifyFile("password.pdf")
             .ImageMagickPdfPassword("password");
 }
-
-#endif
