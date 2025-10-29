@@ -37,7 +37,7 @@ Contains [comparers](https://github.com/VerifyTests/Verify/blob/master/docs/comp
 public static void Init()
 {
     VerifyImageMagick.Initialize();
-    VerifyImageMagick.RegisterComparers(threshold: 0.05);
+    VerifyImageMagick.RegisterComparers(threshold: 0.5);
 }
 ```
 <sup><a href='/src/Tests/ModuleInitializer.cs#L3-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-enable' title='Start of snippet'>anchor</a></sup>
