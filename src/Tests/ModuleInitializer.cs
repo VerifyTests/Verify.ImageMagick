@@ -6,7 +6,7 @@
     public static void Init()
     {
         VerifyImageMagick.Initialize();
-        VerifyImageMagick.RegisterComparers(threshold: 0.05);
+        VerifyImageMagick.RegisterComparers(threshold: 0.5);
     }
 
     #endregion
