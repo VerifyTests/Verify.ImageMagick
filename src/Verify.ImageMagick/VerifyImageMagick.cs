@@ -22,6 +22,9 @@ public static partial class VerifyImageMagick
             "png",
             (name, stream, context) => ConvertImage(name, stream, context, "png", MagickFormat.Png));
         VerifierSettings.RegisterStreamConverter(
+            "webp",
+            (name, stream, context) => ConvertImage(name, stream, context, "webp", MagickFormat.WebP));
+        VerifierSettings.RegisterStreamConverter(
             "tiff",
             (name, stream, context) => ConvertImage(name, stream, context, "tiff", MagickFormat.Tiff));
         RegisterPdfToPngConverter();
@@ -61,6 +64,7 @@ public static partial class VerifyImageMagick
         RegisterComparer(threshold, metric, "jpg");
         RegisterComparer(threshold, metric, "bmp");
         RegisterComparer(threshold, metric, "tiff");
+        RegisterComparer(threshold, metric, "webp");
         VerifierSettings.RegisterStringComparer(
             "svg",
             (received, verified, _) => CompareSvg(threshold, metric, received, verified));
@@ -97,7 +101,7 @@ public static partial class VerifyImageMagick
     public static void ImageMagickComparer(this VerifySettings settings, double threshold = .005, ErrorMetric metric = ErrorMetric.Fuzz) =>
         settings.UseStreamComparer(
             (received, verified, _) => Compare(threshold, metric, received, verified),
-            extensions: ["png", "jpg", "bmp", "tiff"]);
+            extensions: ["png", "jpg", "bmp", "tiff", "webp"]);
 
     /// <summary>
     /// Helper method that calls <see cref="RegisterPdfToPngConverter"/> and
