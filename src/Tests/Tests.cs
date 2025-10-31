@@ -57,6 +57,10 @@ public class Tests
         VerifyFile("sample.pdf");
 
     [Test]
+    public Task VerifyWebp() =>
+        VerifyFile("sample.webp");
+
+    [Test]
     public Task VerifyPdfWithName() =>
         Verify(targets: [new("pdf", File.OpenRead("sample.pdf"), "name")]);
 }
