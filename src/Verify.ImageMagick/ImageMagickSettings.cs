@@ -8,6 +8,10 @@ public static class ImageMagickSettings
     public static void ImageMagickBackground(MagickColor color) =>
         background = color;
 
+
+    public static void ImageMagickPdfPassword(string password) =>
+        pdfPassword = password;
+
     public static void PagesToInclude(this VerifySettings settings, int count) =>
         settings.Context["ImageMagick.PagesToInclude"] = count;
 
