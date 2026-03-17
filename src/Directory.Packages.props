@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.0.1" />
-    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="14.10.4" />
+    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="14.11.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
     <PackageVersion Include="NUnit" Version="4.5.1" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" Pinned="true" />
