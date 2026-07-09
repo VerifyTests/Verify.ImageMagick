@@ -14,7 +14,6 @@ public static partial class VerifyImageMagick
         Initialized = true;
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
-        FileExtensions.RemoveTextExtension("svg");
         VerifierSettings.RegisterStreamConverter(
             "svg",
             ConvertSvg);
