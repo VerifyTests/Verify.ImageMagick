@@ -69,8 +69,8 @@ public class Tests
 
         var stream1 = new MemoryStream();
         var stream2 = new MemoryStream();
-        image1.Write(stream1, MagickFormat.Png);
-        image2.Write(stream2, MagickFormat.Png);
+        await image1.WriteAsync(stream1, MagickFormat.Png);
+        await image2.WriteAsync(stream2, MagickFormat.Png);
         stream1.Position = 0;
         stream2.Position = 0;
 
@@ -104,8 +104,8 @@ public class Tests
 
         var stream1 = new MemoryStream();
         var stream2 = new MemoryStream();
-        image1.Write(stream1, MagickFormat.Png);
-        image2.Write(stream2, MagickFormat.Png);
+        await image1.WriteAsync(stream1, MagickFormat.Png);
+        await image2.WriteAsync(stream2, MagickFormat.Png);
 
         // Compare with threshold = 0
         stream1.Position = 0;
@@ -140,8 +140,8 @@ public class Tests
 
         var stream1 = new MemoryStream();
         var stream2 = new MemoryStream();
-        image1.Write(stream1, MagickFormat.Png);
-        image2.Write(stream2, MagickFormat.Png);
+        await image1.WriteAsync(stream1, MagickFormat.Png);
+        await image2.WriteAsync(stream2, MagickFormat.Png);
         stream1.Position = 0;
         stream2.Position = 0;
 
