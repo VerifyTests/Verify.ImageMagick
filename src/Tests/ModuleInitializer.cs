@@ -12,6 +12,10 @@
     #endregion
 
     [ModuleInitializer]
-    public static void InitOther() =>
+    public static void InitOther()
+    {
         VerifierSettings.InitializePlugins();
+        // must run after Init, since it replaces the pdf converter registered by Initialize
+        Ghostscript.RegisterPdfConverter();
+    }
 }

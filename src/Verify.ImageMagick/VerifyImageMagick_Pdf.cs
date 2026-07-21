@@ -10,7 +10,7 @@ public static partial class VerifyImageMagick
             (name, stream, context) => Convert(name, stream, context, MagickFormat.Pdf));
     }
 
-    static ConversionResult Convert(string? name, Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
+    internal static ConversionResult Convert(string? name, Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
     {
         var streams = new List<Stream>();
         var magickSettings = context.MagickReadSettings();
