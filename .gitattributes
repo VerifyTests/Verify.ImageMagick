@@ -1,1 +1,14 @@
+* text=auto eol=lf
+*.snk binary
+*.png binary
+*.jpg binary
+*.webp binary
 *.tiff binary
+*.pdf binary
+
+*.verified.txt text eol=lf working-tree-encoding=UTF-8
+*.verified.svg text eol=lf working-tree-encoding=UTF-8
+
+.editorconfig text eol=lf working-tree-encoding=UTF-8
+*.sln.DotSettings text eol=lf working-tree-encoding=UTF-8
+*.slnx.DotSettings text eol=lf working-tree-encoding=UTF-8
