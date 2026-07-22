@@ -16,14 +16,33 @@ public static partial class VerifyImageMagick
         var magickSettings = context.MagickReadSettings();
         magickSettings.Format = magickFormat;
         var password = context.PdfPassword();
+        var includePdf = !context.IsTargetExcluded("pdf");
         if (password != null)
         {
+            // Checked before rendering, which is the expensive part, so the failure is immediate.
+            // An encrypted document cannot have a deterministic pdf snapshot: the trailer /ID seeds
+            // the encryption key, so neutralizing it would leave the document undecryptable. Rather
+            // than silently omitting the target, which would make the snapshot set differ from an
+            // unencrypted document for no visible reason, this is explicit.
+            if (includePdf)
+            {
+                throw new(
+                    """
+                    A password protected pdf cannot produce a deterministic pdf target, since the trailer /ID seeds the encryption key and neutralizing it would leave the document undecryptable.
+                    Exclude the pdf target to verify only the rendered pages: ExcludeTargets("pdf")
+                    """);
+            }
+
             magickSettings.SetDefines(
                 new PdfReadDefines
                 {
                     Password = password
                 });
         }
+
+        // Made seekable so the source document can be re-read for the pdf target after
+        // MagickImageCollection has consumed it.
+        stream = WrapStream(stream);
 
         using var images = new MagickImageCollection();
         images.Read(stream, magickSettings);
@@ -47,6 +66,22 @@ public static partial class VerifyImageMagick
             streams.Add(memoryStream);
         }
 
-        return new(null, streams.Select(_ => new Target("png", _, name)));
+        List<Target> targets = [];
+
+        // The pdf snapshot is always the full document, regardless of PagesToInclude, which trims
+        // only the rendered pages above. Mirrors the svg target in ConvertSvg, which likewise emits
+        // the source document alongside the render.
+        if (includePdf)
+        {
+            stream.Position = 0;
+            targets.Add(
+                new("pdf", PdfNormalizer.Normalize(stream), name, performConversion: false)
+                {
+                    BypassComparersForSubsequentOnDifference = true
+                });
+        }
+
+        targets.AddRange(streams.Select(_ => new Target("png", _, name)));
+        return new(null, targets);
     }
 }
