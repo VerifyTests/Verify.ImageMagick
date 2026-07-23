@@ -74,8 +74,9 @@ public static partial class VerifyImageMagick
         if (includePdf)
         {
             stream.Position = 0;
+            var pdf = context.Normalize() ? PdfNormalizer.Normalize(stream) : CopyRemaining(stream);
             targets.Add(
-                new("pdf", PdfNormalizer.Normalize(stream), name, performConversion: false)
+                new("pdf", pdf, name, performConversion: false)
                 {
                     BypassComparersForSubsequentOnDifference = true
                 });
@@ -83,5 +84,14 @@ public static partial class VerifyImageMagick
 
         targets.AddRange(streams.Select(_ => new Target("png", _, name)));
         return new(null, targets);
+    }
+
+    // The source stream is consumed elsewhere in this method, so the pdf target gets its own copy.
+    static MemoryStream CopyRemaining(Stream stream)
+    {
+        var target = new MemoryStream();
+        stream.CopyTo(target);
+        target.Position = 0;
+        return target;
     }
 }

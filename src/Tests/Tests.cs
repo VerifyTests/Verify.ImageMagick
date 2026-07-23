@@ -161,6 +161,11 @@ public class Tests
         VerifyFile("sample.webp");
 
     [Test]
+    public Task SkipPdfNormalization() =>
+        VerifyFile("sample.pdf")
+            .SkipPdfNormalization();
+
+    [Test]
     public Task VerifyPdfWithName() =>
         Verify(targets: [new("pdf", File.OpenRead("sample.pdf"), "name")]);
 }
