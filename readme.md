@@ -68,7 +68,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 public Task VerifyPdf() =>
     VerifyFile("sample.pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L31-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L32-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -84,7 +84,7 @@ public Task VerifyPdfStream()
     return Verify(stream, "pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L39-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L40-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -146,9 +146,10 @@ For password-protected PDF, the password can be provided to allow verification:
 [Test]
 public Task PdfPassword() =>
     VerifyFile("password.pdf")
-        .ImageMagickPdfPassword("password");
+        .ImageMagickPdfPassword("password")
+        .ExcludeTargets("pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L22-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-PdfPassword' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L22-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-PdfPassword' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Icon

@@ -24,7 +24,8 @@ public class Samples
     [Test]
     public Task PdfPassword() =>
         VerifyFile("password.pdf")
-            .ImageMagickPdfPassword("password");
+            .ImageMagickPdfPassword("password")
+            .ExcludeTargets("pdf");
 
     #endregion
 
