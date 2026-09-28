@@ -16,7 +16,7 @@ static class Ghostscript
         catch (MagickDelegateErrorException exception)
             when (exception.Message.Contains("(127)"))
         {
-            throw new InconclusiveException(
+            throw new TUnit.Core.Exceptions.SkipTestException(
                 $"""
                  Ghostscript is required to convert pdfs, and it is not installed.
                  https://ghostscript.com/releases/gsdnld.html

@@ -1,4 +1,3 @@
-[TestFixture]
 public class PasswordSamples
 {
     // A password protected pdf cannot produce a deterministic pdf target, so the pdf target is
@@ -10,12 +9,12 @@ public class PasswordSamples
             .ExcludeTargets("pdf");
 
     [Test]
-    public void PasswordWithPdfTargetThrows()
+    public async Task PasswordWithPdfTargetThrows()
     {
-        var exception = Assert.ThrowsAsync<Exception>(
+        var exception = await Assert.ThrowsAsync<Exception>(
             () => VerifyFile("password.pdf")
-                .ImageMagickPdfPassword("password"))!;
+                .ImageMagickPdfPassword("password"));
 
-        Assert.That(exception.Message, Does.Contain("""ExcludeTargets("pdf")"""));
+        await Assert.That(exception!.Message).Contains("""ExcludeTargets("pdf")""");
     }
 }

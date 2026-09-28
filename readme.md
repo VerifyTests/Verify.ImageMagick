@@ -68,7 +68,7 @@ VerifyImageMagick.RegisterPdfToPngConverter();
 public Task VerifyPdf() =>
     VerifyFile("sample.pdf");
 ```
-<sup><a href='/src/Tests/Samples.cs#L32-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L31-L37' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdf' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -84,7 +84,7 @@ public Task VerifyPdfStream()
     return Verify(stream, "pdf");
 }
 ```
-<sup><a href='/src/Tests/Samples.cs#L40-L49' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L39-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-VerifyPdfStream' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -106,7 +106,7 @@ The following will use ImageMagick to compare the images instead of the default 
 public Task CompareImage() =>
     VerifyFile("sample.jpg");
 ```
-<sup><a href='/src/Tests/Samples.cs#L6-L12' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareImage' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L5-L11' title='Snippet source file'>snippet source</a> | <a href='#snippet-CompareImage' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -131,7 +131,7 @@ public Task BackgroundColor() =>
     VerifyFile("transparent.png")
         .ImageMagickBackground(MagickColors.Blue);
 ```
-<sup><a href='/src/Tests/Samples.cs#L14-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-BackgroundColor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L13-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-BackgroundColor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -148,7 +148,7 @@ public Task PdfPassword() =>
     VerifyFile("password.pdf")
         .ImageMagickPdfPassword("password");
 ```
-<sup><a href='/src/Tests/Samples.cs#L23-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-PdfPassword' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Samples.cs#L22-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-PdfPassword' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 ## Icon

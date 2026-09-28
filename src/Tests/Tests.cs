@@ -1,8 +1,18 @@
+using System.Globalization;
 
-[TestFixture]
-[SetCulture("en-US")]
+
+namespace VerifyTestsImageMagickTests;
+
 public class Tests
 {
+    [Before(Test)]
+    public void SetCulture()
+    {
+        var culture = new CultureInfo("en-US");
+        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
+    }
+
 #if Debug
     [Test]
     public Task FailingCompare() =>
@@ -86,8 +96,7 @@ public class Tests
         var threshold = 0.00000000000001;
         var compare = await VerifyImageMagick.Compare(threshold, ErrorMetric.Fuzz, stream1, stream2);
 
-        Assert.That(compare.IsEqual, Is.False,
-            $"Different images (diff={rawDiff}) should be detected with threshold={threshold}");
+        await Assert.That(compare.IsEqual).IsFalse().Because($"Different images (diff={rawDiff}) should be detected with threshold={threshold}");
     }
 
     // https://github.com/VerifyTests/Verify.ImageMagick/issues/754
@@ -118,11 +127,11 @@ public class Tests
         var compareTiny = await VerifyImageMagick.Compare(0.00000000000001, ErrorMetric.Fuzz, stream1, stream2);
 
         // Both should detect the difference
-        Assert.Multiple(() =>
+        using (Assert.Multiple())
         {
-            Assert.That(compareZero.IsEqual, Is.False, "Threshold=0 should detect difference");
-            Assert.That(compareTiny.IsEqual, Is.False, "Tiny threshold should detect difference");
-        });
+            await Assert.That(compareZero.IsEqual).IsFalse().Because("Threshold=0 should detect difference");
+            await Assert.That(compareTiny.IsEqual).IsFalse().Because("Tiny threshold should detect difference");
+        }
     }
 
     // https://github.com/VerifyTests/Verify.ImageMagick/issues/754
@@ -148,8 +157,7 @@ public class Tests
         var threshold = 0.00000000000001;
         var compare = await VerifyImageMagick.Compare(threshold, ErrorMetric.RootMeanSquared, stream1, stream2);
 
-        Assert.That(compare.IsEqual, Is.False,
-            "RootMeanSquared should detect positional differences");
+        await Assert.That(compare.IsEqual).IsFalse().Because("RootMeanSquared should detect positional differences");
     }
 
     [Test]

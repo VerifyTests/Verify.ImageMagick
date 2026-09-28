@@ -9,3 +9,4 @@ obj/
 nugets/
 src/nul
 *.lnk
+TestResults/

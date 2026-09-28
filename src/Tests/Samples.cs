@@ -1,6 +1,5 @@
 #if DEBUG
 
-[TestFixture]
 public class Samples
 {
     #region CompareImage

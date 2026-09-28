@@ -1,17 +1,25 @@
 #if DEBUG
 
-[TestFixture]
 public class TransparentSamples
 {
     [Test]
-    public Task TransparentNone(
-        [Values("png", "svg", "pdf")] string format) =>
+    [Arguments("png")]
+    [Arguments("svg")]
+    [Arguments("pdf")]
+    public Task TransparentNone(string format) =>
         VerifyFile($"transparent.{format}");
 
     [Test]
-    public Task TransparentSample(
-        [Values("png", "svg", "pdf")] string format,
-        [Values] Color backgroundColor) =>
+    [Arguments("png", Color.Transparent)]
+    [Arguments("png", Color.Green)]
+    [Arguments("png", Color.Blue)]
+    [Arguments("svg", Color.Transparent)]
+    [Arguments("svg", Color.Green)]
+    [Arguments("svg", Color.Blue)]
+    [Arguments("pdf", Color.Transparent)]
+    [Arguments("pdf", Color.Green)]
+    [Arguments("pdf", Color.Blue)]
+    public Task TransparentSample(string format, Color backgroundColor) =>
         VerifyFile($"transparent.{format}")
             .ImageMagickBackground(Map(backgroundColor));
 
