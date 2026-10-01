@@ -57,7 +57,7 @@ public static void Init()
  * `Png`: render pdf pages and svg documents to png.
  * `All`: all of the above. This is the default.
 
-Omitted outputs are skipped before any rendering, so no work is done for them. The source document target (pdf or svg) is always emitted; use `VerifierSettings.ExcludeTargets("pdf")` to exclude it. Png, webp, and tiff image files are not affected. To emit only the source document, pass `0`:
+Omitted outputs are skipped before any rendering, so no work is done for them. The source document target (pdf or svg) is always emitted; use `VerifierSettings.ExcludeTargets("pdf")` to exclude it. Png, webp, and tiff image files are not affected. To emit only the source document, pass `ImageMagickOutputs.None`:
 
 <!-- snippet: InitializeOutputs -->
 <a id='snippet-InitializeOutputs'></a>
@@ -65,7 +65,7 @@ Omitted outputs are skipped before any rendering, so no work is done for them. T
 [ModuleInitializer]
 public static void Init() =>
     // Only emit the source document. Skip rendering to png.
-    VerifyImageMagick.Initialize(outputs: 0);
+    VerifyImageMagick.Initialize(ImageMagickOutputs.None);
 ```
 <sup><a href='/src/StaticSettingsTests/ModuleInitializer.cs#L3-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-InitializeOutputs' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

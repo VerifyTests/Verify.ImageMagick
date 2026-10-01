@@ -7,6 +7,11 @@ namespace VerifyTests;
 public enum ImageMagickOutputs
 {
     /// <summary>
+    /// No outputs. Only the source document is emitted.
+    /// </summary>
+    None = 0,
+
+    /// <summary>
     /// Render pdf pages and svg documents to png.
     /// </summary>
     Png = 1,

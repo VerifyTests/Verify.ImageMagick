@@ -5,7 +5,7 @@ public static class ModuleInitializer
     [ModuleInitializer]
     public static void Init() =>
         // Only emit the source document. Skip rendering to png.
-        VerifyImageMagick.Initialize(outputs: 0);
+        VerifyImageMagick.Initialize(ImageMagickOutputs.None);
 
     #endregion
 }
