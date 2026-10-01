@@ -4,8 +4,14 @@ public static partial class VerifyImageMagick
 {
     static ConversionResult ConvertSvg(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
     {
-        stream = WrapStream(stream);
-        using var svg = ReadSvgStream(stream, context);
+        var content = ReadNormalizedSvg(stream);
+        if (!outputs.HasFlag(ImageMagickOutputs.Png))
+        {
+            return new(null, [new("svg", content, name)]);
+        }
+
+        using var svgStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+        using var svg = ReadSvgStream(svgStream, context);
 
         var pngStream = new MemoryStream();
         svg.Write(pngStream, MagickFormat.Png);
@@ -13,9 +19,21 @@ public static partial class VerifyImageMagick
         return new(
             null,
             [
-                new("svg", stream, name),
+                new("svg", content, name),
                 new("png", pngStream, name)
             ]);
+    }
+
+    // Verify requires text snapshots to use \n line endings, so an svg authored or checked out
+    // with \r\n (or \r) would otherwise produce an unacceptable verified file.
+    static string ReadNormalizedSvg(Stream stream)
+    {
+        stream = WrapStream(stream);
+        using var reader = new StreamReader(stream, Encoding.UTF8, detectEncodingFromByteOrderMarks: true, bufferSize: 1024, leaveOpen: true);
+        return reader
+            .ReadToEnd()
+            .Replace("\r\n", "\n")
+            .Replace('\r', '\n');
     }
 
     static IMagickImage<ushort> ReadSvgStream(Stream stream, IReadOnlyDictionary<string, object> context)

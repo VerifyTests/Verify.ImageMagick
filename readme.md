@@ -50,6 +50,27 @@ public static void Init()
 `Initialize` registers the pdf to png converter and all comparers.
 
 
+### Outputs
+
+`Initialize` accepts an optional `ImageMagickOutputs` flags enum that controls, globally, which outputs a document is split into:
+
+ * `Png`: render pdf pages and svg documents to png.
+ * `All`: all of the above. This is the default.
+
+Omitted outputs are skipped before any rendering, so no work is done for them. The source document target (pdf or svg) is always emitted; use `VerifierSettings.ExcludeTargets("pdf")` to exclude it. Png, webp, and tiff image files are not affected. To emit only the source document, pass `ImageMagickOutputs.None`:
+
+<!-- snippet: InitializeOutputs -->
+<a id='snippet-InitializeOutputs'></a>
+```cs
+[ModuleInitializer]
+public static void Init() =>
+    // Only emit the source document. Skip rendering to png.
+    VerifyImageMagick.Initialize(ImageMagickOutputs.None);
+```
+<sup><a href='/src/StaticSettingsTests/ModuleInitializer.cs#L3-L10' title='Snippet source file'>snippet source</a> | <a href='#snippet-InitializeOutputs' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+
 ### PDF converter
 
 To register only the pdf to png converter:

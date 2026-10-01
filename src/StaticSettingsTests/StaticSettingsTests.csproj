@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Verify.TUnit" />
+    <PackageReference Include="Argon" />
+    <PackageReference Include="DiffEngine" />
+    <PackageReference Include="EmptyFiles" />
+    <PackageReference Include="SimpleInfoName" />
+    <PackageReference Include="Verify" />
+    <PackageReference Include="TUnit" />
+    <ProjectReference Include="..\Verify.ImageMagick\Verify.ImageMagick.csproj" />
+    <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+
+    <None Include="..\Tests\sample.pdf" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Tests\sample.svg" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
