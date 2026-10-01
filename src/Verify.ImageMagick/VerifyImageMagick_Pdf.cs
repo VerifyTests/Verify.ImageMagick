@@ -44,26 +44,29 @@ public static partial class VerifyImageMagick
         // MagickImageCollection has consumed it.
         stream = WrapStream(stream);
 
-        using var images = new MagickImageCollection();
-        images.Read(stream, magickSettings);
-        var count = images.Count;
-        if (context.GetPagesToInclude(out var pagesToInclude))
+        if (outputs.HasFlag(ImageMagickOutputs.Png))
         {
-            count = Math.Min(count, (int) pagesToInclude);
-        }
-
-        var background = context.Background();
-        for (var index = 0; index < count; index++)
-        {
-            var image = images[index];
-            if (background != null)
+            using var images = new MagickImageCollection();
+            images.Read(stream, magickSettings);
+            var count = images.Count;
+            if (context.GetPagesToInclude(out var pagesToInclude))
             {
-                image = Flatten(image, background);
+                count = Math.Min(count, (int) pagesToInclude);
             }
 
-            var memoryStream = new MemoryStream();
-            image.Write(memoryStream, MagickFormat.Png);
-            streams.Add(memoryStream);
+            var background = context.Background();
+            for (var index = 0; index < count; index++)
+            {
+                var image = images[index];
+                if (background != null)
+                {
+                    image = Flatten(image, background);
+                }
+
+                var memoryStream = new MemoryStream();
+                image.Write(memoryStream, MagickFormat.Png);
+                streams.Add(memoryStream);
+            }
         }
 
         List<Target> targets = [];

@@ -4,7 +4,10 @@ public static partial class VerifyImageMagick
 {
     public static bool Initialized { get; private set; }
 
-    public static void Initialize()
+    static ImageMagickOutputs outputs = ImageMagickOutputs.All;
+
+    /// <param name="outputs">Which outputs pdf and svg documents are split into. Defaults to <see cref="ImageMagickOutputs.All"/>.</param>
+    public static void Initialize(ImageMagickOutputs outputs = ImageMagickOutputs.All)
     {
         if (Initialized)
         {
@@ -12,6 +15,7 @@ public static partial class VerifyImageMagick
         }
 
         Initialized = true;
+        VerifyImageMagick.outputs = outputs;
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         VerifierSettings.RegisterStreamConverter(

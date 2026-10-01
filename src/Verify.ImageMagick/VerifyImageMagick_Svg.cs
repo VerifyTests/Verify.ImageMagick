@@ -5,6 +5,11 @@ public static partial class VerifyImageMagick
     static ConversionResult ConvertSvg(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
     {
         stream = WrapStream(stream);
+        if (!outputs.HasFlag(ImageMagickOutputs.Png))
+        {
+            return new(null, [new("svg", stream, name)]);
+        }
+
         using var svg = ReadSvgStream(stream, context);
 
         var pngStream = new MemoryStream();
