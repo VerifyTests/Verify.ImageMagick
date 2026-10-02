@@ -55,6 +55,7 @@ public static void Init()
 `Initialize` accepts an optional `ImageMagickOutputs` flags enum that controls, globally, which outputs a document is split into:
 
  * `Png`: render pdf pages and svg documents to png.
+ * `None`: none of the above. Only the source document is emitted.
  * `All`: all of the above. This is the default.
 
 Omitted outputs are skipped before any rendering, so no work is done for them. The source document target (pdf or svg) is always emitted; use `VerifierSettings.ExcludeTargets("pdf")` to exclude it. Png, webp, and tiff image files are not affected. To emit only the source document, pass `ImageMagickOutputs.None`:
