@@ -2,9 +2,9 @@ public class OutputsTests
 {
     [Test]
     public Task PdfWithoutPng() =>
-        VerifyFile("sample.pdf");
+        VerifyFile(ProjectFiles.sample_pdf.Path);
 
     [Test]
     public Task SvgWithoutPng() =>
-        VerifyFile("sample.svg");
+        VerifyFile(ProjectFiles.sample_svg.Path);
 }

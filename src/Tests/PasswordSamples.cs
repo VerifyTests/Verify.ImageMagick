@@ -4,7 +4,7 @@ public class PasswordSamples
     // excluded and only the rendered pages are verified.
     [Test]
     public Task PasswordSample() =>
-        VerifyFile("password.pdf")
+        VerifyFile(ProjectFiles.password_pdf.Path)
             .ImageMagickPdfPassword("password")
             .ExcludeTargets("pdf");
 
@@ -12,7 +12,7 @@ public class PasswordSamples
     public async Task PasswordWithPdfTargetThrows()
     {
         var exception = await Assert.ThrowsAsync<Exception>(
-            () => VerifyFile("password.pdf")
+            () => VerifyFile(ProjectFiles.password_pdf.Path)
                 .ImageMagickPdfPassword("password"));
 
         await Assert.That(exception!.Message).Contains("""ExcludeTargets("pdf")""");

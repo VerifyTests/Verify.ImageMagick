@@ -18,7 +18,7 @@ public class Tests
     public Task FailingCompare() =>
         ThrowsTask(async () =>
             {
-                await VerifyFile("sample.jpg")
+                await VerifyFile(ProjectFiles.sample_jpg.Path)
                     .DisableDiff()
                     .UseMethodName("FailingCompareInner")
                     .ImageMagickComparer(.0001);
@@ -33,22 +33,22 @@ public class Tests
         var compare = VerifyImageMagick.Compare(
             .0001,
             ErrorMetric.Fuzz,
-            File.OpenRead("sample.jpg"),
-            File.OpenRead("sample.jpg"));
+            ProjectFiles.sample_jpg.OpenRead(),
+            ProjectFiles.sample_jpg.OpenRead());
         return Verify(compare);
     }
 
     [Test]
     public Task ShouldNotMessWithTargetName() =>
-        Verify(new Target("png", File.OpenRead("sample.jpg"), "name"));
+        Verify(new Target("png", ProjectFiles.sample_jpg.OpenRead(), "name"));
 
     [Test]
     public Task ShouldNotMessWithTargetNames() =>
         Verify(
             targets:
             [
-                new("png", File.OpenRead("sample.jpg"), "name1"),
-                new("png", File.OpenRead("sample.jpg"), "name2")
+                new("png", ProjectFiles.sample_jpg.OpenRead(), "name1"),
+                new("png", ProjectFiles.sample_jpg.OpenRead(), "name2")
             ]);
 
     [Test]
@@ -57,8 +57,8 @@ public class Tests
         var compare = VerifyImageMagick.Compare(
             .0001,
             ErrorMetric.Fuzz,
-            File.OpenRead("sample.jpg"),
-            File.OpenRead("sample.png"));
+            ProjectFiles.sample_jpg.OpenRead(),
+            ProjectFiles.sample_png.OpenRead());
         return Verify(compare);
     }
 
@@ -162,18 +162,18 @@ public class Tests
 
     [Test]
     public Task VerifyPdf() =>
-        VerifyFile("sample.pdf");
+        VerifyFile(ProjectFiles.sample_pdf.Path);
 
     [Test]
     public Task VerifyWebp() =>
-        VerifyFile("sample.webp");
+        VerifyFile(ProjectFiles.sample_webp.Path);
 
     [Test]
     public Task SkipPdfNormalization() =>
-        VerifyFile("sample.pdf")
+        VerifyFile(ProjectFiles.sample_pdf.Path)
             .SkipPdfNormalization();
 
     [Test]
     public Task VerifyPdfWithName() =>
-        Verify(targets: [new("pdf", File.OpenRead("sample.pdf"), "name")]);
+        Verify(targets: [new("pdf", ProjectFiles.sample_pdf.OpenRead(), "name")]);
 }

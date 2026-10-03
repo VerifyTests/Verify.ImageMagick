@@ -50,12 +50,12 @@ public class Samples
 
     [Test]
     public Task VerifySvg() =>
-        VerifyFile("sample.svg");
+        VerifyFile(ProjectFiles.sample_svg.Path);
 
     [Test]
     public Task VerifySvgWithCrlf()
     {
-        var content = File.ReadAllText("sample.svg")
+        var content = ProjectFiles.sample_svg.ReadAllText()
             .Replace("\r\n", "\n")
             .Replace("\n", "\r\n");
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(content));
