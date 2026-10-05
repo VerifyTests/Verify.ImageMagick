@@ -7,7 +7,7 @@
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.5.0" />
     <PackageVersion Include="DeterministicPdf" Version="2.1.0" />
     <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="14.17.2" />
-    <PackageVersion Include="Polyfill" Version="11.4.2" />
+    <PackageVersion Include="Polyfill" Version="11.4.3" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.182" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
     <PackageVersion Include="Sbom" Version="0.3.1" />
