@@ -7,12 +7,11 @@ public static partial class VerifyImageMagick
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         VerifierSettings.RegisterStreamConverter(
             "pdf",
-            (name, stream, context) => Convert(name, stream, context, MagickFormat.Pdf));
+            (_, stream, context) => Convert(stream, context, MagickFormat.Pdf));
     }
 
-    internal static ConversionResult Convert(string? name, Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
+    internal static ConversionResult Convert(Stream stream, IReadOnlyDictionary<string, object> context, MagickFormat magickFormat)
     {
-        var streams = new List<Stream>();
         var magickSettings = context.MagickReadSettings();
         magickSettings.Format = magickFormat;
         var password = context.PdfPassword();
@@ -44,20 +43,21 @@ public static partial class VerifyImageMagick
         // MagickImageCollection has consumed it.
         stream = WrapStream(stream);
 
-        if (outputs.HasFlag(ImageMagickOutputs.Png))
+        // Names the pages and says which of them the verification wants, so that is decided the
+        // same way here as in every other converter of a paged document.
+        var conversion = new PagedConversion(context);
+
+        // Ghostscript draws every page in the one read, so the read can only be skipped whole:
+        // when the pngs are excluded. The pages are then only counted, which reads what each
+        // one is without drawing it, so the info file says how many there are either way.
+        if (conversion.IncludeImages)
         {
             using var images = new MagickImageCollection();
             images.Read(stream, magickSettings);
-            var count = images.Count;
-            if (context.GetPagesToInclude(out var pagesToInclude))
-            {
-                count = Math.Min(count, (int) pagesToInclude);
-            }
-
             var background = context.Background();
-            for (var index = 0; index < count; index++)
+            foreach (var number in conversion.Pages(images.Count))
             {
-                var image = images[index];
+                var image = images[number - 1];
                 if (background != null)
                 {
                     image = Flatten(image, background);
@@ -65,11 +65,15 @@ public static partial class VerifyImageMagick
 
                 var memoryStream = new MemoryStream();
                 image.Write(memoryStream, MagickFormat.Png);
-                streams.Add(memoryStream);
+                conversion.AddPage(number, memoryStream);
             }
         }
-
-        List<Target> targets = [];
+        else
+        {
+            using var images = new MagickImageCollection();
+            images.Ping(stream, magickSettings);
+            conversion.PageCount = images.Count;
+        }
 
         // The pdf snapshot is always the full document, regardless of PagesToInclude, which trims
         // only the rendered pages above. Mirrors the svg target in ConvertSvg, which likewise emits
@@ -78,15 +82,10 @@ public static partial class VerifyImageMagick
         {
             stream.Position = 0;
             var pdf = context.Normalize() ? PdfNormalizer.Normalize(stream) : CopyRemaining(stream);
-            targets.Add(
-                new("pdf", pdf, name, performConversion: false)
-                {
-                    BypassComparersForSubsequentOnDifference = true
-                });
+            conversion.Source(new("pdf", pdf));
         }
 
-        targets.AddRange(streams.Select(_ => new Target("png", _, name)));
-        return new(null, targets);
+        return conversion.Build();
     }
 
     // The source stream is consumed elsewhere in this method, so the pdf target gets its own copy.

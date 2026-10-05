@@ -5,13 +5,13 @@ static class Ghostscript
     // Replaces the pdf converter registered by Initialize with one that treats that as inconclusive,
     // so pdf tests do not fail on machines that do not have Ghostscript installed.
     public static void RegisterPdfConverter() =>
-        VerifierSettings.RegisterStreamConverter("pdf", Convert);
+        VerifierSettings.RegisterStreamConverter("pdf", (_, stream, context) => Convert(stream, context));
 
-    static ConversionResult Convert(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
+    static ConversionResult Convert(Stream stream, IReadOnlyDictionary<string, object> context)
     {
         try
         {
-            return VerifyImageMagick.Convert(name, stream, context, MagickFormat.Pdf);
+            return VerifyImageMagick.Convert(stream, context, MagickFormat.Pdf);
         }
         catch (MagickDelegateErrorException exception)
             when (exception.Message.Contains("(127)"))

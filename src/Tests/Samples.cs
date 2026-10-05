@@ -48,6 +48,24 @@ public class Samples
 
     #endregion
 
+    #region PagesToInclude
+
+    [Test]
+    public Task PagesToInclude() =>
+        VerifyFile("sample.pdf")
+            .PagesToInclude(1);
+
+    #endregion
+
+    #region ExcludeDerivedTargets
+
+    [Test]
+    public Task ExcludeDerivedTargets() =>
+        VerifyFile("sample.pdf")
+            .ExcludeDerivedTargets("png");
+
+    #endregion
+
     [Test]
     public Task VerifySvg() =>
         VerifyFile(ProjectFiles.sample_svg.Path);

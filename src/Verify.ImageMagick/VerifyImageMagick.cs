@@ -4,10 +4,7 @@ public static partial class VerifyImageMagick
 {
     public static bool Initialized { get; private set; }
 
-    static ImageMagickOutputs outputs = ImageMagickOutputs.All;
-
-    /// <param name="outputs">Which outputs pdf and svg documents are split into. Defaults to <see cref="ImageMagickOutputs.All"/>.</param>
-    public static void Initialize(ImageMagickOutputs outputs = ImageMagickOutputs.All)
+    public static void Initialize()
     {
         if (Initialized)
         {
@@ -15,12 +12,11 @@ public static partial class VerifyImageMagick
         }
 
         Initialized = true;
-        VerifyImageMagick.outputs = outputs;
 
         InnerVerifier.ThrowIfVerifyHasBeenRun();
         VerifierSettings.RegisterStreamConverter(
             "svg",
-            ConvertSvg);
+            (_, stream, context) => ConvertSvg(stream, context));
         VerifierSettings.RegisterStreamConverter(
             "png",
             (name, stream, context) => ConvertImage(name, stream, context, "png", MagickFormat.Png));
@@ -33,6 +29,9 @@ public static partial class VerifyImageMagick
         RegisterPdfToPngConverter();
     }
 
+    // The image is the thing being verified, not something derived from a document, so this
+    // stays on the constructor that leaves the naming to the converter and passes the name on.
+    // As a derived target it would be dropped by ExcludeDerivedTargets.
     static ConversionResult ConvertImage(string? name, Stream stream, IReadOnlyDictionary<string, object> context, string extension, MagickFormat format)
     {
         var background = context.Background();
