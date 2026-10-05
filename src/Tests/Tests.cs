@@ -176,4 +176,14 @@ public class Tests
     [Test]
     public Task VerifyPdfWithName() =>
         Verify(targets: [new("pdf", ProjectFiles.sample_pdf.OpenRead(), "name")]);
+
+    [Test]
+    public Task VerifySvgWithName() =>
+        Verify(targets: [new("svg", ProjectFiles.transparent_svg.OpenRead(), "name")]);
+
+    // A page keeps its number when the pages before it are left out, so this is #page_0002.
+    [Test]
+    public Task PagesToInclude() =>
+        VerifyFile(ProjectFiles.sample_pdf.Path)
+            .PagesToInclude(_ => _ == 2);
 }

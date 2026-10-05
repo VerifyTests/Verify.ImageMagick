@@ -2,12 +2,18 @@ namespace VerifyTests;
 
 public static partial class VerifyImageMagick
 {
-    static ConversionResult ConvertSvg(string? name, Stream stream, IReadOnlyDictionary<string, object> context)
+    static ConversionResult ConvertSvg(Stream stream, IReadOnlyDictionary<string, object> context)
     {
         var content = ReadNormalizedSvg(stream);
-        if (!outputs.HasFlag(ImageMagickOutputs.Png))
+
+        // The svg is the source and its render is derived from it, which is what lets
+        // ExcludeDerivedTargets("png") drop the render and leave a png verified as itself alone.
+        var source = new Target("svg", content);
+
+        // Asked before rendering, so a png that would be dropped is never drawn.
+        if (context.IsDerivedTargetExcluded("png"))
         {
-            return new(null, [new("svg", content, name)]);
+            return new(null, source, []);
         }
 
         using var svgStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
@@ -16,12 +22,9 @@ public static partial class VerifyImageMagick
         var pngStream = new MemoryStream();
         svg.Write(pngStream, MagickFormat.Png);
 
-        return new(
-            null,
-            [
-                new("svg", content, name),
-                new("png", pngStream, name)
-            ]);
+        // Not named: an svg has the one render, so it takes the name of the svg and differs from
+        // it by extension alone.
+        return new(null, source, [new("png", pngStream)]);
     }
 
     // Verify requires text snapshots to use \n line endings, so an svg authored or checked out

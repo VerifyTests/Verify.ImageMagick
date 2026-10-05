@@ -3,9 +3,13 @@ public static class ModuleInitializer
     #region InitializeOutputs
 
     [ModuleInitializer]
-    public static void Init() =>
-        // Only emit the source document. Skip rendering to png.
-        VerifyImageMagick.Initialize(ImageMagickOutputs.None);
+    public static void Init()
+    {
+        VerifyImageMagick.Initialize();
+
+        // For every test: no png, so only the source document is verified
+        VerifierSettings.ExcludeDerivedTargets("png");
+    }
 
     #endregion
 }
