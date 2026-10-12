@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.5.0" />
     <PackageVersion Include="DeterministicPdf" Version="2.2.0" />
-    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="14.17.2" />
+    <PackageVersion Include="Magick.NET-Q16-AnyCPU" Version="15.0.0" />
     <PackageVersion Include="Polyfill" Version="11.4.3" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.184" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
